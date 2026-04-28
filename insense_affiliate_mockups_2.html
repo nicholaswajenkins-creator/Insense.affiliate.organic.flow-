@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insense — Organic Affiliate Model: UI Spec & Mockups</title>
+<style>
+  :root {
+    --pink:#E91E8C; --pink-lt:#FCE8F4; --pink-mid:#F470BE; --pink-border:#F5C4E0;
+    --lilac:#C8B4F0; --lilac-lt:#F0EBF9; --lilac-dk:#7C3AED;
+    --navy:#0D1B2A; --navy-lt:#1E3A5F;
+    --sky:#E8F4FB; --sky-mid:#B8D9EE;
+    --white:#FFFFFF; --surface:#F7F9FC; --surface2:#EEF2F7;
+    --border:#DDE3EC; --border-lt:#EEF0F3;
+    --muted:#7A8FA6; --text:#1A2733; --text-lt:#4A5A6A;
+    --green:#1A7A34; --green-lt:#E6F5EC; --green-dk:#145C27;
+    --orange:#F57C00; --orange-lt:#FFF3E0;
+    --red-ann:#E53935; --red-lt:#FFEBEE;
+    --ann-yellow:#FFF9E6; --ann-yellow-border:#F0C040; --ann-yellow-text:#7A5A00;
+    --yt:#CC0000; --ig:#E1306C; --tt:#1A1A1A;
+    /* Annotation colours */
+    --ann-red:#FF3B30; --ann-blue:#007AFF; --ann-green:#34C759;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,'Helvetica Neue',sans-serif; background:#E8ECF2; color:var(--text); }
+
+  /* ── TOP NAV ── */
+  .doc-nav {
+    position:sticky; top:0; z-index:100;
+    background:var(--navy); border-bottom:3px solid var(--pink);
+    display:flex; align-items:center; padding:0 32px; height:52px; gap:24px;
+  }
+  .doc-logo { display:flex; align-items:center; gap:8px; }
+  .doc-logo-mark { width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+  .doc-logo-mark svg { width:32px; height:32px; }
+  .doc-logo-text { font-size:15px; font-weight:800; color:white; letter-spacing:-0.3px; }
+  .doc-logo-divider { width:1px; height:20px; background:#2E4A66; }
+  .doc-title { font-size:12px; color:#7A9AB5; font-weight:500; }
+  .doc-nav-links { display:flex; gap:4px; margin-left:24px; }
+  .doc-nav-link { font-size:11.5px; color:#7A9AB5; padding:5px 12px; border-radius:6px; cursor:pointer; text-decoration:none; transition:all .15s; }
+  .doc-nav-link:hover { background:#1E3A5F; color:white; }
+  .doc-nav-link.active { background:var(--pink); color:white; font-weight:600; }
+  .doc-badge { margin-left:auto; background:var(--pink-lt); color:var(--pink); font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; }
+
+  /* ── PAGE LAYOUT ── */
+  .doc-body { max-width:1400px; margin:0 auto; padding:32px 32px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display:flex; align-items:center; gap:16px;
+    margin:48px 0 24px;
+  }
+  .section-header:first-child { margin-top:0; }
+  .section-num { width:36px; height:36px; border-radius:50%; background:var(--pink); color:white; font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .section-title { font-size:22px; font-weight:800; color:var(--navy); }
+  .section-sub { font-size:13px; color:var(--muted); margin-top:2px; }
+  .section-line { flex:1; height:1px; background:var(--border); }
+
+  /* ── CALLOUT BOXES ── */
+  .callout { border-radius:10px; padding:12px 16px; font-size:12.5px; line-height:1.6; margin-bottom:20px; display:flex; gap:12px; }
+  .callout-info { background:var(--sky); border:1px solid var(--sky-mid); color:#1A4A6A; }
+  .callout-warn { background:var(--ann-yellow); border:1px solid var(--ann-yellow-border); color:var(--ann-yellow-text); }
+  .callout-new  { background:var(--pink-lt); border:1px solid var(--pink-border); color:#8B1260; }
+  .callout-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-board {
+    background:white; border-radius:16px; border:1px solid var(--border);
+    padding:28px; overflow-x:auto;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+  }
+  .flow-phases { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; min-width:900px; }
+  .flow-phase { }
+  .flow-phase-hdr {
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+    padding-bottom:8px; border-bottom:2px solid var(--border);
+  }
+  .flow-phase-num { width:22px; height:22px; border-radius:50%; background:var(--navy); color:white; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .flow-phase-title { font-size:11px; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:.07em; }
+  .flow-step { border-radius:8px; padding:8px 10px; margin-bottom:5px; font-size:11.5px; line-height:1.45; position:relative; }
+  .fs-unchanged { background:var(--surface); border:1px solid var(--border-lt); color:var(--text-lt); border-left:3px solid #CBD5E0; }
+  .fs-new       { background:var(--pink-lt); border:1px solid var(--pink-border); color:#8B1260; font-weight:600; border-left:3px solid var(--pink); }
+  .fs-extended  { background:var(--orange-lt); border:1px solid #FCD9A0; color:#7A3800; font-weight:500; border-left:3px solid var(--orange); }
+  .fs-action    { background:var(--lilac-lt); border:1px solid var(--lilac); color:var(--lilac-dk); font-weight:600; border-left:3px solid var(--lilac-dk); }
+  .flow-arrow   { text-align:center; color:#CBD5E0; font-size:14px; margin:2px 0; }
+  .flow-legend  { display:flex; gap:20px; margin-top:20px; padding-top:16px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .leg { display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--text-lt); }
+  .leg-sw { width:14px; height:14px; border-radius:3px; flex-shrink:0; }
+
+  /* ── SWIM LANE ── */
+  .swim-board { background:white; border-radius:16px; border:1px solid var(--border); overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.06); margin-bottom:24px; }
+  .swim-row { display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid var(--border); }
+  .swim-row:last-child { border-bottom:none; }
+  .swim-lane-label { background:var(--surface); padding:16px; display:flex; align-items:center; justify-content:center; text-align:center; border-right:1px solid var(--border); }
+  .swim-lane-label span { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; writing-mode:vertical-rl; transform:rotate(180deg); }
+  .swim-cells { display:grid; grid-template-columns:repeat(4,1fr); }
+  .swim-cell { padding:14px; border-right:1px solid var(--border-lt); }
+  .swim-cell:last-child { border-right:none; }
+  .swim-cell-title { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; }
+  .swim-item { font-size:11.5px; color:var(--text); background:var(--surface); border-radius:6px; padding:6px 9px; margin-bottom:5px; border-left:2.5px solid #CBD5E0; }
+  .swim-item-new { background:var(--pink-lt); border-left-color:var(--pink); color:#8B1260; font-weight:500; }
+  .swim-item-ext { background:var(--orange-lt); border-left-color:var(--orange); color:#7A3800; }
+
+  /* ── BEFORE/AFTER FRAMES ── */
+  .ba-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px; }
+  .ba-panel { border-radius:14px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.1); }
+  .ba-label {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  }
+  .ba-before { background:#EEF2F7; color:var(--muted); }
+  .ba-after  { background:var(--pink); color:white; }
+  .ba-label svg { width:12px; height:12px; }
+
+  /* ── INSENSE UI CHROME ── */
+  .ui-frame { background:white; }
+  .ui-topbar {
+    background:white; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 16px; height:48px; gap:12px;
+  }
+  .ui-logo { display:flex; align-items:center; gap:5px; font-size:13px; font-weight:800; color:var(--navy); }
+  .ui-logo-mark { width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
+  .ui-nav { display:flex; gap:2px; flex:1; }
+  .ui-nav-item { font-size:11px; color:var(--muted); padding:5px 10px; border-radius:6px; }
+  .ui-nav-item.on { color:var(--pink); background:var(--pink-lt); font-weight:600; }
+  .ui-avatar { width:26px; height:26px; border-radius:50%; background:var(--lilac); color:var(--navy); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .ui-body { display:flex; }
+  .ui-sidebar { width:160px; min-width:160px; background:var(--surface); border-right:1px solid var(--border); padding:12px 0; }
+  .ui-sidebar-item { font-size:11px; color:var(--text-lt); padding:6px 14px; border-left:2.5px solid transparent; cursor:default; display:flex; align-items:center; gap:6px; }
+  .ui-sidebar-item.on { color:var(--pink); background:var(--pink-lt); border-left-color:var(--pink); font-weight:600; }
+  .ui-sidebar-dot { width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.6; flex-shrink:0; }
+  .ui-sidebar-badge { margin-left:auto; background:var(--pink); color:white; font-size:8px; font-weight:700; padding:1px 5px; border-radius:6px; }
+  .ui-sidebar-badge-new { margin-left:auto; background:var(--lilac); color:var(--navy); font-size:8px; font-weight:700; padding:1px 5px; border-radius:6px; }
+  .ui-main { flex:1; padding:16px 18px; }
+  .ui-page-title { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+  .ui-page-sub { font-size:10.5px; color:var(--muted); margin-bottom:14px; }
+
+  /* form elements */
+  .ui-label { font-size:10.5px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .ui-input { width:100%; border:1px solid var(--border); border-radius:7px; padding:7px 10px; font-size:11.5px; color:var(--text); background:white; }
+  .ui-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .ui-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:12px; }
+  .ui-section-divider { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin:14px 0 8px; display:flex; align-items:center; gap:8px; }
+  .ui-section-divider::before, .ui-section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+  .ui-btn-primary { background:var(--pink); color:white; border:none; border-radius:7px; padding:8px 16px; font-size:12px; font-weight:600; cursor:default; }
+  .ui-btn-ghost { background:transparent; color:var(--text-lt); border:1px solid var(--border); border-radius:7px; padding:7px 12px; font-size:12px; cursor:default; }
+
+  /* type cards */
+  .type-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+  .type-card { border:1.5px solid var(--border); border-radius:10px; padding:12px; position:relative; background:white; }
+  .type-card.sel { border-color:var(--pink); background:var(--pink-lt); box-shadow:0 0 0 3px var(--pink-lt); }
+  .type-card.new { border-color:var(--lilac); border-style:dashed; }
+  .type-card.new.sel { border-style:solid; border-color:var(--lilac-dk); background:var(--lilac-lt); }
+  .tc-icon { font-size:18px; margin-bottom:6px; }
+  .tc-name { font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; }
+  .tc-desc { font-size:10px; color:var(--text-lt); line-height:1.4; }
+  .tc-badge { position:absolute; top:8px; right:8px; font-size:8.5px; font-weight:700; padding:2px 7px; border-radius:8px; }
+  .badge-pop { background:var(--pink); color:white; }
+  .badge-new { background:var(--lilac); color:var(--navy); }
+
+  /* sku picker */
+  .sku-picker { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:4px; }
+  .sku-search { display:flex; align-items:center; gap:6px; padding:7px 10px; background:var(--surface); border-bottom:1px solid var(--border); font-size:11px; color:var(--muted); }
+  .sku-row { display:flex; align-items:center; gap:8px; padding:7px 10px; border-bottom:1px solid var(--border-lt); }
+  .sku-row:last-child { border-bottom:none; }
+  .sku-img { width:28px; height:28px; border-radius:6px; background:var(--pink-lt); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .sku-name { font-size:11px; font-weight:500; color:var(--text); }
+  .sku-price { font-size:10px; color:var(--muted); }
+  .sku-check { margin-left:auto; width:16px; height:16px; border-radius:50%; border:1.5px solid var(--border); flex-shrink:0; }
+  .sku-check.on { background:var(--pink); border-color:var(--pink); display:flex; align-items:center; justify-content:center; }
+
+  /* creator rows */
+  .creator-hdr { display:grid; grid-template-columns:1.8fr .6fr .6fr 1.2fr .7fr; gap:0; padding:0 6px 6px; border-bottom:1px solid var(--border); margin-bottom:4px; }
+  .creator-hdr span { font-size:9.5px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .creator-row { display:grid; grid-template-columns:1.8fr .6fr .6fr 1.2fr .7fr; gap:0; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:8px; background:white; margin-bottom:5px; }
+  .ca { width:28px; height:28px; border-radius:50%; background:var(--pink-lt); color:var(--pink); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .c-handle { font-size:11px; font-weight:600; color:var(--navy); }
+  .c-meta { font-size:9.5px; color:var(--muted); }
+  .aff-chip { font-size:9.5px; color:var(--pink); background:var(--pink-lt); border:1px solid var(--pink-border); padding:2px 7px; border-radius:4px; font-family:monospace; white-space:nowrap; }
+  .pt-yt { background:#FFEEEE; color:var(--yt); font-size:9.5px; font-weight:700; padding:2px 7px; border-radius:7px; display:inline-block; }
+  .pt-ig { background:#FFF0F5; color:var(--ig); font-size:9.5px; font-weight:700; padding:2px 7px; border-radius:7px; display:inline-block; }
+  .st-sent { background:var(--green-lt); color:var(--green); font-size:9.5px; font-weight:600; padding:2px 8px; border-radius:7px; display:inline-block; }
+  .inv-btn { background:var(--pink); color:white; border:none; border-radius:6px; padding:4px 9px; font-size:9.5px; font-weight:600; cursor:default; }
+
+  /* dashboard */
+  .kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:14px; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+  .kpi-l { font-size:9.5px; color:var(--muted); font-weight:600; margin-bottom:4px; }
+  .kpi-v { font-size:17px; font-weight:800; color:var(--navy); line-height:1; }
+  .kpi-d { font-size:9px; margin-top:3px; }
+  .kpi-up { color:var(--green); }
+  .kpi-bar { height:3px; background:var(--border); border-radius:2px; margin-top:6px; overflow:hidden; }
+  .kpi-fill { height:3px; border-radius:2px; }
+  .perf-table { width:100%; border-collapse:collapse; font-size:10.5px; }
+  .perf-table th { text-align:left; color:var(--muted); font-weight:700; font-size:9px; text-transform:uppercase; letter-spacing:.05em; padding:5px 7px; border-bottom:1px solid var(--border); }
+  .perf-table td { padding:7px 7px; border-bottom:1px solid var(--border-lt); color:var(--text); vertical-align:middle; }
+  .perf-table tr:last-child td { border-bottom:none; }
+  .gmv { font-weight:800; color:var(--green); }
+  .comm { font-weight:700; color:var(--pink); }
+  .src { font-size:9px; background:var(--surface); color:var(--muted); border:1px solid var(--border); padding:1px 5px; border-radius:4px; }
+  .re-btn { background:var(--pink); color:white; border:none; border-radius:5px; padding:3px 7px; font-size:9px; font-weight:700; cursor:default; }
+  .tab-bar { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:12px; }
+  .tab-item { font-size:11px; color:var(--muted); padding:7px 12px; border-bottom:2px solid transparent; cursor:default; }
+  .tab-item.on { color:var(--pink); border-bottom-color:var(--pink); font-weight:600; }
+
+  /* ── ANNOTATION OVERLAYS ── */
+  .annotated { position:relative; }
+  .ann-layer { position:absolute; top:0; left:0; right:0; bottom:0; pointer-events:none; }
+
+  /* Callout annotations */
+  .ann {
+    position:absolute;
+    background:white;
+    border:2px solid var(--ann-red);
+    border-radius:8px;
+    padding:6px 10px;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--ann-red);
+    white-space:nowrap;
+    box-shadow:0 2px 10px rgba(231,57,49,.25);
+    z-index:10;
+  }
+  .ann-blue { border-color:var(--ann-blue); color:var(--ann-blue); box-shadow:0 2px 10px rgba(0,122,255,.2); }
+  .ann-green { border-color:var(--ann-green); color:var(--ann-green); box-shadow:0 2px 10px rgba(52,199,89,.2); }
+  .ann::before {
+    content:'NEW';
+    position:absolute;
+    top:-8px; left:8px;
+    background:var(--ann-red);
+    color:white;
+    font-size:8px;
+    font-weight:800;
+    padding:1px 5px;
+    border-radius:4px;
+    letter-spacing:.05em;
+  }
+  .ann-blue::before { background:var(--ann-blue); content:'NEW'; }
+  .ann-green::before { background:var(--ann-green); content:'NEW'; }
+  .ann-changed::before { content:'EXTENDED'; background:var(--orange); }
+  .ann-changed { border-color:var(--orange); color:var(--orange); box-shadow:0 2px 10px rgba(245,124,0,.2); }
+
+  /* Highlight boxes */
+  .highlight-box {
+    position:absolute;
+    border:2.5px dashed var(--ann-red);
+    border-radius:6px;
+    background:rgba(255,59,48,.06);
+    z-index:5;
+  }
+  .highlight-box-blue { border-color:var(--ann-blue); background:rgba(0,122,255,.05); }
+  .highlight-box-orange { border-color:var(--orange); background:rgba(245,124,0,.06); }
+  .highlight-box-green { border-color:var(--ann-green); background:rgba(52,199,89,.06); }
+
+  /* ── SPEC TABLES ── */
+  .spec-table { width:100%; border-collapse:collapse; font-size:12.5px; background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.06); margin-bottom:24px; }
+  .spec-table th { background:var(--navy); color:white; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:10px 14px; text-align:left; }
+  .spec-table td { padding:10px 14px; border-bottom:1px solid var(--border-lt); color:var(--text); vertical-align:top; }
+  .spec-table tr:last-child td { border-bottom:none; }
+  .spec-table tr:nth-child(even) td { background:var(--surface); }
+  .spec-table .field { font-family:monospace; font-size:11.5px; color:var(--pink); background:var(--pink-lt); padding:2px 6px; border-radius:4px; }
+  .spec-table .tag-new { font-size:9.5px; font-weight:700; background:var(--pink); color:white; padding:2px 6px; border-radius:5px; }
+  .spec-table .tag-ext { font-size:9.5px; font-weight:700; background:var(--orange); color:white; padding:2px 6px; border-radius:5px; }
+  .spec-table .tag-unch { font-size:9.5px; font-weight:600; background:var(--surface2); color:var(--muted); padding:2px 6px; border-radius:5px; }
+
+  /* ── PRINT / EXPORT ── */
+  .print-btn {
+    position:fixed; bottom:28px; right:28px;
+    background:var(--pink); color:white;
+    border:none; border-radius:12px;
+    padding:12px 22px; font-size:13px; font-weight:700;
+    cursor:pointer; box-shadow:0 4px 20px rgba(233,30,140,.4);
+    z-index:200; display:flex; align-items:center; gap:8px;
+  }
+
+  /* ── STICKY SECTION HEADERS ── */
+  .sticky-hdr { position:sticky; top:52px; z-index:80; background:#E8ECF2; padding:8px 0 4px; }
+
+  /* ── NEW FIELD HIGHLIGHT ── */
+  .field-new { background:var(--pink-lt); border:1.5px solid var(--pink-border); border-radius:7px; padding:7px 10px; font-size:11px; color:#8B1260; }
+  .field-new-label { font-size:9px; font-weight:700; color:var(--pink); text-transform:uppercase; letter-spacing:.08em; margin-bottom:3px; }
+  .comm-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .comm-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px; }
+  .comm-lbl { font-size:9.5px; color:var(--muted); margin-bottom:4px; }
+  .comm-val { font-size:14px; font-weight:800; color:var(--navy); }
+
+  /* chips */
+  .chip { display:inline-flex; align-items:center; gap:4px; font-size:9.5px; font-weight:700; padding:2px 8px; border-radius:10px; }
+  .chip-new { background:var(--pink-lt); color:var(--pink); border:1px solid var(--pink-border); }
+  .chip-ext { background:var(--orange-lt); color:var(--orange); border:1px solid #FCD9A0; }
+
+  @media print {
+    .doc-nav, .print-btn { display:none; }
+    .doc-body { padding:16px; max-width:100%; }
+    .ba-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="doc-nav">
+  <div class="doc-logo">
+    <div class="doc-logo-mark"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark charcoal square (back) -->
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <!-- Cyan square (rotated) -->
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <!-- Pink star (front) -->
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg></div>
+    <span class="doc-logo-text">INSENSE</span>
+  </div>
+  <div class="doc-logo-divider"></div>
+  <span class="doc-title">Organic Affiliate — UI Spec & Mockups</span>
+  <div class="doc-nav-links">
+    <a class="doc-nav-link active" href="#flow">Flow</a>
+    <a class="doc-nav-link" href="#screen1">Campaign Type</a>
+    <a class="doc-nav-link" href="#screen2">Brief Builder</a>
+    <a class="doc-nav-link" href="#screen3">Creator Invite</a>
+    <a class="doc-nav-link" href="#screen4">Performance</a>
+    <a class="doc-nav-link" href="#spec">Field Spec</a>
+  </div>
+  <div class="doc-badge">Draft v1 · Apr 2026</div>
+</nav>
+
+<div class="doc-body">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 0: CONTEXT -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="callout callout-info" style="margin-top:0;">
+  <span class="callout-icon">ℹ️</span>
+  <div>
+    <strong>Purpose of this document.</strong> Red-line spec showing where the Organic Affiliate model slots into Insense's existing UI. Pink dashed borders = net-new UI elements. Orange dashed borders = extended existing screens. Green borders = auto-generated / system-driven. Read left to right: each section shows a before/after pair with annotation overlays.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: FLOW DIAGRAM -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="flow" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div><div class="section-title">Campaign flow — where affiliate branches</div><div class="section-sub">Overview of the 4-phase journey with affiliate touchpoints highlighted</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="callout callout-new">
+  <span class="callout-icon">🔑</span>
+  <div><strong>Core placement decision:</strong> Organic Affiliate is a <em>third campaign type</em> — not a separate module or nav item. The existing 4-step campaign creation flow is preserved exactly. Three screens get new fields injected. One entirely new concept (affiliate link auto-generation) appears inside the existing creator invite step.</div>
+</div>
+
+<div class="flow-board" style="margin-bottom:24px;">
+  <div class="flow-phases">
+    <div class="flow-phase">
+      <div class="flow-phase-hdr"><div class="flow-phase-num">1</div><div class="flow-phase-title">Setup</div></div>
+      <div class="flow-step fs-unchanged">Brand opens "Create campaign"</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-new">✦ Selects "Organic Affiliate" campaign type</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-extended">⊕ Connects Google Merchant Center or Commerce Manager</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-new">✦ Sets commission rate + attribution window</div>
+    </div>
+    <div class="flow-phase">
+      <div class="flow-phase-hdr"><div class="flow-phase-num">2</div><div class="flow-phase-title">Brief Builder</div></div>
+      <div class="flow-step fs-unchanged">Opens brief builder (existing)</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-unchanged">Content guidelines — unchanged</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-extended">⊕ SKU picker injected below content fields</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-new">✦ Commission structure block added</div>
+    </div>
+    <div class="flow-phase">
+      <div class="flow-phase-hdr"><div class="flow-phase-num">3</div><div class="flow-phase-title">Creator Invite</div></div>
+      <div class="flow-step fs-unchanged">Creator discovery — unchanged</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-unchanged">Shortlist / CSV upload — unchanged</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-extended">⊕ Deal row extended: affiliate link + commission column</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-new">✦ Affiliate link auto-sent in invite email</div>
+    </div>
+    <div class="flow-phase">
+      <div class="flow-phase-hdr"><div class="flow-phase-num">4</div><div class="flow-phase-title">Performance</div></div>
+      <div class="flow-step fs-unchanged">Creator posts content</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-new">✦ GMC API / CAPI feeds sales data back</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-extended">⊕ Performance tab: GMV + orders + commission added</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step fs-action">★ Top performers auto-flagged for re-invite</div>
+    </div>
+  </div>
+  <div class="flow-legend">
+    <div class="leg"><div class="leg-sw" style="background:var(--pink-lt); border-left:3px solid var(--pink);"></div> New step / UI element</div>
+    <div class="leg"><div class="leg-sw" style="background:var(--orange-lt); border-left:3px solid var(--orange);"></div> Extended existing screen</div>
+    <div class="leg"><div class="leg-sw" style="background:var(--lilac-lt); border-left:3px solid var(--lilac-dk);"></div> New automated action</div>
+    <div class="leg"><div class="leg-sw" style="background:var(--surface); border-left:3px solid #CBD5E0;"></div> Existing — completely unchanged</div>
+  </div>
+</div>
+
+<!-- SWIM LANES -->
+<div class="swim-board">
+  <div class="swim-row">
+    <div class="swim-lane-label"><span>Brand</span></div>
+    <div class="swim-cells">
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 1</div>
+        <div class="swim-item swim-item-new">Selects "Organic Affiliate" campaign type</div>
+        <div class="swim-item swim-item-new">Connects GMC / Commerce Manager</div>
+        <div class="swim-item swim-item-new">Sets commission % and attribution window</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 2</div>
+        <div class="swim-item">Fills in content guidelines (unchanged)</div>
+        <div class="swim-item swim-item-ext">Picks SKUs from product catalogue</div>
+        <div class="swim-item swim-item-new">Sets base fee (optional) + commission structure</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 3</div>
+        <div class="swim-item">Discovers + shortlists creators (unchanged)</div>
+        <div class="swim-item swim-item-ext">Sees auto-generated affiliate link per creator</div>
+        <div class="swim-item">Clicks Invite (unchanged button, new payload)</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 4</div>
+        <div class="swim-item swim-item-ext">Views GMV, orders, commission per creator</div>
+        <div class="swim-item swim-item-new">Clicks "Re-invite ✦" on top performers</div>
+        <div class="swim-item">Commission auto-paid to creator wallets</div>
+      </div>
+    </div>
+  </div>
+  <div class="swim-row">
+    <div class="swim-lane-label"><span>Insense Platform</span></div>
+    <div class="swim-cells">
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 1</div>
+        <div class="swim-item swim-item-new">Renders "Organic Affiliate" campaign type card</div>
+        <div class="swim-item swim-item-new">OAuth flow to connect GMC or Meta Commerce Mgr</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 2</div>
+        <div class="swim-item swim-item-ext">Injects SKU picker into existing brief builder</div>
+        <div class="swim-item swim-item-new">Injects commission structure block</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 3</div>
+        <div class="swim-item swim-item-new">Auto-generates unique affiliate URL per creator</div>
+        <div class="swim-item swim-item-new">Embeds link + commission rate in invite email</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 4</div>
+        <div class="swim-item swim-item-new">Polls GMC API daily (YouTube) / CAPI (Instagram)</div>
+        <div class="swim-item swim-item-new">Credits commission to creator wallet on confirmed sale</div>
+        <div class="swim-item swim-item-new">Flags creators above GMV threshold for re-invite</div>
+      </div>
+    </div>
+  </div>
+  <div class="swim-row">
+    <div class="swim-lane-label"><span>Creator</span></div>
+    <div class="swim-cells">
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 1</div>
+        <div class="swim-item">Not involved in setup</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 2</div>
+        <div class="swim-item">Receives brief (same format as always)</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 3</div>
+        <div class="swim-item swim-item-new">Receives invite email containing affiliate link</div>
+        <div class="swim-item">Accepts deal in Insense Creator App (unchanged)</div>
+        <div class="swim-item swim-item-new">Tags product in YouTube video / Instagram Reel</div>
+      </div>
+      <div class="swim-cell">
+        <div class="swim-cell-title">Phase 4</div>
+        <div class="swim-item swim-item-new">Sees sales + commission in creator dashboard</div>
+        <div class="swim-item swim-item-new">Commission paid to wallet automatically</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: SCREEN 1 — CAMPAIGN TYPE SELECTOR -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="screen1" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div><div class="section-title">Screen 1 — Campaign type selector</div><div class="section-sub">Where "Organic Affiliate" enters the flow — before/after comparison</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="callout-icon">📌</span>
+  <div><strong>Annotation notes:</strong> The only change to this screen is (1) the addition of a third campaign type card and (2) conditional reveal of two new fields when it's selected. All existing UI chrome, navigation, and form patterns are completely unchanged.</div>
+</div>
+
+<div class="ba-grid">
+  <!-- BEFORE -->
+  <div class="ba-panel">
+    <div class="ba-label ba-before">
+      <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 4v2l1.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      BEFORE — Today
+    </div>
+    <div class="ui-frame">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item">Dashboard</span><span class="ui-nav-item on">Campaigns</span><span class="ui-nav-item">Creators</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>All campaigns</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot"></div>Paid UGC</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Spark Ads</div>
+        </div>
+        <div class="ui-main">
+          <div class="ui-page-title">Create new campaign</div>
+          <div class="ui-page-sub">Choose a campaign type to get started</div>
+          <div class="type-grid">
+            <div class="type-card sel">
+              <div class="tc-icon">🎬</div>
+              <div class="tc-name">Paid UGC</div>
+              <div class="tc-desc">Commission creators for paid ad content. Fixed fee per deliverable.</div>
+              <div class="tc-badge badge-pop">Popular</div>
+            </div>
+            <div class="type-card">
+              <div class="tc-icon">⚡</div>
+              <div class="tc-name">Spark Ads</div>
+              <div class="tc-desc">Amplify organic creator content as paid ads. Creator whitelists account.</div>
+            </div>
+          </div>
+          <div class="ui-row">
+            <div><div class="ui-label">Campaign name</div><input class="ui-input" value="Summer Skincare Campaign" /></div>
+            <div><div class="ui-label">Platform</div><input class="ui-input" value="TikTok + Instagram" /></div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
+            <button class="ui-btn-ghost">Cancel</button>
+            <button class="ui-btn-primary">Continue →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFTER -->
+  <div class="ba-panel">
+    <div class="ba-label ba-after">
+      <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="white" stroke-width="1.5"/><path d="M3.5 6l2 2 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      AFTER — With Organic Affiliate
+    </div>
+    <div class="ui-frame annotated" style="position:relative;">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item">Dashboard</span><span class="ui-nav-item on">Campaigns</span><span class="ui-nav-item">Creators</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>All campaigns</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Paid UGC</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Spark Ads</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot" style="background:var(--pink);"></div>Organic Affiliate<span class="ui-sidebar-badge-new">New</span></div>
+        </div>
+        <div class="ui-main">
+          <div class="ui-page-title">Create new campaign</div>
+          <div class="ui-page-sub">Choose a campaign type to get started</div>
+          <div class="type-grid">
+            <div class="type-card">
+              <div class="tc-icon">🎬</div>
+              <div class="tc-name">Paid UGC</div>
+              <div class="tc-desc">Commission creators for paid ad content. Fixed fee per deliverable.</div>
+              <div class="tc-badge badge-pop">Popular</div>
+            </div>
+            <div class="type-card">
+              <div class="tc-icon">⚡</div>
+              <div class="tc-name">Spark Ads</div>
+              <div class="tc-desc">Amplify organic creator content as paid ads.</div>
+            </div>
+            <div class="type-card new sel" style="position:relative;">
+              <div class="tc-icon">🔗</div>
+              <div class="tc-name">Organic Affiliate</div>
+              <div class="tc-desc">Creators tag products in organic posts. Commission on resulting sales. No fixed fee.</div>
+              <div class="tc-badge badge-new">New</div>
+            </div>
+          </div>
+          <!-- NEW FIELDS revealed on affiliate selection -->
+          <div class="ui-section-divider">Affiliate setup — revealed on selection</div>
+          <div class="ui-row">
+            <div>
+              <div class="ui-label">Campaign name</div>
+              <input class="ui-input" value="Summer Skincare — Affiliate Q3" />
+            </div>
+            <div>
+              <div class="ui-label">Platform <span class="chip chip-new">Connects affiliate programme</span></div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">
+                <span style="font-size:10px; padding:4px 9px; border-radius:16px; border:1.5px solid #333; background:#F5F5F5; font-weight:600;">TikTok Shop</span>
+                <span style="font-size:10px; padding:4px 9px; border-radius:16px; border:1.5px solid var(--yt); background:#FFF5F5; color:var(--yt); font-weight:600;">YouTube</span>
+                <span style="font-size:10px; padding:4px 9px; border-radius:16px; border:1.5px solid var(--ig); background:#FFF0F5; color:var(--ig); font-weight:600;">Instagram</span>
+              </div>
+            </div>
+          </div>
+          <div class="ui-row">
+            <div>
+              <div class="field-new">
+                <div class="field-new-label">✦ New field — Commission rate</div>
+                <div style="display:flex; align-items:center; gap:6px;"><input class="ui-input" value="12" style="width:60px;" /> <span style="font-size:11px; color:var(--muted);">% of confirmed sale value</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="field-new">
+                <div class="field-new-label">✦ New field — Attribution window</div>
+                <select class="ui-input"><option>30 days (YouTube default)</option><option>7 days (Instagram default)</option></select>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:8px;">
+            <button class="ui-btn-ghost">Cancel</button>
+            <button class="ui-btn-primary">Continue to brief →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Annotation key for screen 1 -->
+<div style="background:white; border-radius:10px; border:1px solid var(--border); padding:14px 18px; margin-bottom:32px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; font-size:11.5px;">
+  <div style="display:flex; gap:10px; align-items:flex-start;">
+    <div style="width:12px; height:12px; border:2px solid var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — Third campaign type card</strong><br><span style="color:var(--text-lt);">Organic Affiliate card added to the 2-card grid. Selecting it reveals the conditional fields below. No new navigation required.</span></div>
+  </div>
+  <div style="display:flex; gap:10px; align-items:flex-start;">
+    <div style="width:12px; height:12px; border:2px solid var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — Commission rate field</strong><br><span style="color:var(--text-lt);">Conditionally revealed on campaign type selection only. Percentage of confirmed sale value. Default: 10%.</span></div>
+  </div>
+  <div style="display:flex; gap:10px; align-items:flex-start;">
+    <div style="width:12px; height:12px; border:2px solid var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — Attribution window</strong><br><span style="color:var(--text-lt);">Defaults to platform standard (30d YouTube, 7d Instagram). Conditionally revealed. Brands can set custom window.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: SCREEN 2 — BRIEF BUILDER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="screen2" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div><div class="section-title">Screen 2 — Brief builder</div><div class="section-sub">SKU picker + commission structure injected below existing content fields</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="callout-icon">📌</span>
+  <div><strong>Annotation notes:</strong> The brief builder title, content guidelines, deliverables, and dos/don'ts sections are <em>completely unchanged</em>. Two new blocks are appended below the existing form: (1) a SKU picker pulling from the connected commerce platform, and (2) a commission structure block. Neither block appears for Paid UGC or Spark Ads campaign types.</div>
+</div>
+
+<div class="ba-grid">
+  <!-- BEFORE -->
+  <div class="ba-panel">
+    <div class="ba-label ba-before">BEFORE — Brief builder today</div>
+    <div class="ui-frame">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Type ✓</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot"></div>Brief builder</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Creators</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Review & launch</div>
+        </div>
+        <div class="ui-main" style="overflow:hidden;">
+          <div class="tab-bar">
+            <div class="tab-item on">Brief details</div>
+            <div class="tab-item">Content guidelines</div>
+            <div class="tab-item">Deliverables</div>
+          </div>
+          <div style="margin-bottom:10px;"><div class="ui-label">Brief title</div><input class="ui-input" value="Summer Skincare Campaign" /></div>
+          <div style="margin-bottom:10px;"><div class="ui-label">What should creators communicate?</div><textarea class="ui-input" style="height:50px; resize:none;">Show your authentic morning skincare routine using our serum.</textarea></div>
+          <div class="ui-row">
+            <div><div class="ui-label">Content format</div><select class="ui-input"><option>Video (15–60s)</option></select></div>
+            <div><div class="ui-label">Platform</div><select class="ui-input"><option>TikTok + Instagram Reels</option></select></div>
+          </div>
+          <div style="text-align:right; margin-top:8px;">
+            <button class="ui-btn-primary">Continue to creators →</button>
+          </div>
+          <!-- No affiliate fields exist -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFTER -->
+  <div class="ba-panel">
+    <div class="ba-label ba-after">AFTER — With affiliate sections injected</div>
+    <div class="ui-frame">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Type ✓</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot"></div>Brief builder</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Creators</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Review & launch</div>
+        </div>
+        <div class="ui-main" style="overflow:auto; max-height:420px;">
+          <div class="tab-bar">
+            <div class="tab-item on">Brief details</div>
+            <div class="tab-item">Content guidelines</div>
+            <div class="tab-item">Deliverables</div>
+          </div>
+          <!-- UNCHANGED fields -->
+          <div style="margin-bottom:8px;"><div class="ui-label">Brief title</div><input class="ui-input" value="Summer Skincare — Affiliate Q3" /></div>
+          <div style="margin-bottom:8px;"><div class="ui-label">What should creators communicate?</div><textarea class="ui-input" style="height:46px; resize:none;">Show your authentic morning skincare routine using our serum. Tag the product in your video.</textarea></div>
+          <div class="ui-row" style="margin-bottom:10px;">
+            <div><div class="ui-label">Content format</div><select class="ui-input"><option>Video (15–60s)</option></select></div>
+            <div><div class="ui-label">Platform</div><select class="ui-input"><option>YouTube + Instagram</option></select></div>
+          </div>
+
+          <!-- NEW: SKU picker -->
+          <div class="ui-section-divider">✦ New — Affiliate product selection</div>
+          <div style="margin-bottom:6px;">
+            <div class="ui-label">Select products creators can tag <span class="chip chip-new">From Google Merchant Center</span></div>
+            <div class="sku-picker">
+              <div class="sku-search">🔍 Search your catalogue...</div>
+              <div class="sku-row">
+                <div class="sku-img">🧴</div>
+                <div style="flex:1;"><div class="sku-name">Vitamin C Brightening Serum 30ml</div><div class="sku-price">SKU-4821 · $34.99</div></div>
+                <div class="sku-check on"><svg viewBox="0 0 10 8" fill="none" width="9"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="sku-row">
+                <div class="sku-img">💧</div>
+                <div style="flex:1;"><div class="sku-name">Hyaluronic Acid Moisturiser 50ml</div><div class="sku-price">SKU-4822 · $29.99</div></div>
+                <div class="sku-check on"><svg viewBox="0 0 10 8" fill="none" width="9"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="sku-row">
+                <div class="sku-img">☀️</div>
+                <div style="flex:1;"><div class="sku-name">SPF 50 Daily Sunscreen 75ml</div><div class="sku-price">SKU-4823 · $24.99</div></div>
+                <div class="sku-check"></div>
+              </div>
+            </div>
+            <div style="font-size:10px; color:var(--muted); margin-top:4px;">2 products selected · Creators can tag any of these</div>
+          </div>
+
+          <!-- NEW: Commission structure -->
+          <div class="ui-section-divider">✦ New — Commission & payment structure</div>
+          <div class="comm-grid" style="margin-bottom:8px;">
+            <div class="comm-box"><div class="comm-lbl">Commission rate</div><div class="comm-val">12%</div></div>
+            <div class="comm-box"><div class="comm-lbl">Base fee (optional)</div><div class="comm-val">$0 <span style="font-size:11px; color:var(--muted); font-weight:400;">/ creator</span></div></div>
+            <div class="comm-box"><div class="comm-lbl">Attribution window</div><div class="comm-val">30 <span style="font-size:11px; color:var(--muted); font-weight:400;">days</span></div></div>
+          </div>
+          <div style="font-size:10px; color:var(--muted); margin-bottom:10px;">Links auto-generated per creator at invite. Commission credited to Insense wallet on confirmed sale.</div>
+
+          <div style="text-align:right;"><button class="ui-btn-primary">Continue to creators →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Annotation key -->
+<div style="background:white; border-radius:10px; border:1px solid var(--border); padding:14px 18px; margin-bottom:32px; display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:11.5px;">
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px dashed var(--orange); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--orange);">Extended — SKU picker block</strong><br><span style="color:var(--text-lt);">New block appended below existing content fields. Pulls product catalogue from Google Merchant Center (YouTube) or Commerce Manager (Instagram). Multi-select. Only appears for Organic Affiliate campaign type.</span></div>
+  </div>
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px dashed var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — Commission structure block</strong><br><span style="color:var(--text-lt);">Three-field block: commission rate (%), optional base fee ($), attribution window (days). Pre-populated from campaign setup. Editable here. Commission auto-disbursed to creator wallet on sale confirmation.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: SCREEN 3 — CREATOR INVITE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="screen3" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div><div class="section-title">Screen 3 — Creator invite</div><div class="section-sub">Deal row extended with auto-generated affiliate link and commission column</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="callout-icon">📌</span>
+  <div><strong>Annotation notes:</strong> Creator discovery, filtering, and shortlisting are <em>completely unchanged</em>. The deal row table gets two new columns (affiliate link, commission rate). The affiliate link is auto-generated — the brand sees it but doesn't need to do anything with it. It's automatically included in the invite email payload.</div>
+</div>
+
+<div class="ba-grid">
+  <!-- BEFORE -->
+  <div class="ba-panel">
+    <div class="ba-label ba-before">BEFORE — Creator invite today</div>
+    <div class="ui-frame">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Type ✓</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Brief ✓</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot"></div>Creators</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Review</div>
+        </div>
+        <div class="ui-main">
+          <div class="ui-page-title" style="margin-bottom:2px;">Invite creators</div>
+          <div class="ui-page-sub" style="margin-bottom:12px;">4 shortlisted</div>
+          <!-- Creator rows — existing columns only -->
+          <div style="display:grid; grid-template-columns:2fr .7fr .8fr; gap:0; padding:0 6px 5px; border-bottom:1px solid var(--border); margin-bottom:5px;">
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Creator</span>
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Platform</span>
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Status</span>
+          </div>
+          <div style="display:grid; grid-template-columns:2fr .7fr .8fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:white; margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:8px;"><div class="ca">SC</div><div><div class="c-handle">@sarahcreates</div><div class="c-meta">892K · Beauty</div></div></div>
+            <div><span class="pt-yt">YT</span></div>
+            <div><span class="st-sent">Invited</span></div>
+          </div>
+          <div style="display:grid; grid-template-columns:2fr .7fr .8fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:white; margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:8px;"><div class="ca" style="background:var(--pink-lt); color:var(--ig);">FJ</div><div><div class="c-handle">@fitnessjane</div><div class="c-meta">445K · Wellness</div></div></div>
+            <div><span class="pt-ig">IG</span></div>
+            <div><span class="st-sent">Invited</span></div>
+          </div>
+          <div style="display:grid; grid-template-columns:2fr .7fr .8fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:var(--surface); margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:8px;"><div class="ca" style="background:#EEE; color:var(--muted);">TU</div><div><div class="c-handle">@techunboxer</div><div class="c-meta">234K · Tech</div></div></div>
+            <div><span class="pt-yt">YT</span></div>
+            <div><button class="inv-btn">Invite</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFTER -->
+  <div class="ba-panel">
+    <div class="ba-label ba-after">AFTER — Two new columns added</div>
+    <div class="ui-frame">
+      <div class="ui-topbar">
+        <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+        <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+        <div class="ui-avatar">HL</div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-sidebar">
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Type ✓</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Brief ✓</div>
+          <div class="ui-sidebar-item on"><div class="ui-sidebar-dot"></div>Creators</div>
+          <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Review</div>
+        </div>
+        <div class="ui-main">
+          <div class="ui-page-title" style="margin-bottom:2px;">Invite creators</div>
+          <div class="ui-page-sub" style="margin-bottom:12px;">4 shortlisted · Affiliate links auto-generated</div>
+          <!-- Extended columns -->
+          <div style="display:grid; grid-template-columns:1.5fr .5fr .5fr 1.1fr .65fr; gap:0; padding:0 6px 5px; border-bottom:1px solid var(--border); margin-bottom:5px;">
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Creator</span>
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Platform</span>
+            <span style="font-size:9px; font-weight:700; color:var(--pink); text-transform:uppercase; letter-spacing:.05em;">Comm. ✦</span>
+            <span style="font-size:9px; font-weight:700; color:var(--pink); text-transform:uppercase; letter-spacing:.05em;">Affiliate link ✦</span>
+            <span style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Status</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.5fr .5fr .5fr 1.1fr .65fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:white; margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:7px;"><div class="ca">SC</div><div><div class="c-handle">@sarahcreates</div><div class="c-meta">892K · Beauty</div></div></div>
+            <span class="pt-yt">YT</span>
+            <span style="font-size:11px; font-weight:700; color:var(--pink);">12%</span>
+            <span class="aff-chip">insense.pro/a/sc4821</span>
+            <span class="st-sent">Invited</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.5fr .5fr .5fr 1.1fr .65fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:white; margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:7px;"><div class="ca" style="background:var(--pink-lt); color:var(--ig);">FJ</div><div><div class="c-handle">@fitnessjane</div><div class="c-meta">445K · Wellness</div></div></div>
+            <span class="pt-ig">IG</span>
+            <span style="font-size:11px; font-weight:700; color:var(--pink);">12%</span>
+            <span class="aff-chip">insense.pro/a/fj4821</span>
+            <span class="st-sent">Invited</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.5fr .5fr .5fr 1.1fr .65fr; align-items:center; padding:7px 6px; border:1px solid var(--border); border-radius:7px; background:var(--surface); margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:7px;"><div class="ca" style="background:#EEE; color:var(--muted);">TU</div><div><div class="c-handle">@techunboxer</div><div class="c-meta">234K · Tech</div></div></div>
+            <span class="pt-yt">YT</span>
+            <span style="font-size:11px; font-weight:700; color:var(--pink);">12%</span>
+            <span class="aff-chip">insense.pro/a/tu4821</span>
+            <button class="inv-btn">Invite</button>
+          </div>
+          <div style="font-size:10px; color:var(--muted); margin-top:6px;">✦ Affiliate link auto-included in invite email · Commission credited to creator wallet on confirmed sale</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Annotation key -->
+<div style="background:white; border-radius:10px; border:1px solid var(--border); padding:14px 18px; margin-bottom:32px; display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:11.5px;">
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px dashed var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — Commission rate column</strong><br><span style="color:var(--text-lt);">Shows the rate set in brief builder. Could be made per-creator editable here if brand wants to offer different rates to different creators (e.g. higher rate for larger accounts).</span></div>
+  </div>
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px solid var(--ann-green); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-green);">Auto-generated — Affiliate link column</strong><br><span style="color:var(--text-lt);">Unique link per creator, auto-generated by Insense (format: insense.pro/a/{creatorcode}{SKU}). Read-only for the brand. Automatically embedded in the invite email. Creator uses it to tag products.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: SCREEN 4 — PERFORMANCE DASHBOARD -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="screen4" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div><div class="section-title">Screen 4 — Performance tab</div><div class="section-sub">GMV, orders, commission injected into existing creator performance table</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <span class="callout-icon">📌</span>
+  <div><strong>Annotation notes:</strong> The performance tab layout, navigation, and engagement metrics (views, impressions, saves) are completely unchanged. Five new KPI cards are added at the top (GMV, commissions, orders, clicks, active creators). The creator table gets four new columns: orders, GMV, commission, and data source. A pink "Re-invite ✦" button appears automatically when a creator exceeds the GMV threshold set in campaign setup.</div>
+</div>
+
+<!-- Full-width for performance dashboard -->
+<div class="ba-panel" style="margin-bottom:16px;">
+  <div class="ba-label ba-before">BEFORE — Performance tab (content metrics only)</div>
+  <div class="ui-frame">
+    <div class="ui-topbar">
+      <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+      <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+      <div class="ui-avatar">HL</div>
+    </div>
+    <div class="ui-body">
+      <div class="ui-sidebar">
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Overview</div>
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Content</div>
+        <div class="ui-sidebar-item on"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Performance</div>
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Payments</div>
+      </div>
+      <div class="ui-main">
+        <div class="ui-page-title" style="margin-bottom:10px;">Summer Skincare Campaign · Performance</div>
+        <!-- Old KPIs — content metrics only -->
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px;">
+          <div class="kpi"><div class="kpi-l">Total Views</div><div class="kpi-v">335K</div></div>
+          <div class="kpi"><div class="kpi-l">Avg Engagement</div><div class="kpi-v">4.2%</div></div>
+          <div class="kpi"><div class="kpi-l">Content Pieces</div><div class="kpi-v">6</div></div>
+          <div class="kpi"><div class="kpi-l">Creators Active</div><div class="kpi-v">6</div></div>
+        </div>
+        <div class="tab-bar"><div class="tab-item on">Creator breakdown</div><div class="tab-item">Content</div></div>
+        <table class="perf-table">
+          <thead><tr><th>Creator</th><th>Platform</th><th>Views</th><th>Engmt</th><th>Saves</th></tr></thead>
+          <tbody>
+            <tr><td>@sarahcreates</td><td><span class="pt-yt">YT</span></td><td>124K</td><td>5.2%</td><td>2.1K</td></tr>
+            <tr><td>@fitnessjane</td><td><span class="pt-ig">IG</span></td><td>89K</td><td>4.8%</td><td>1.4K</td></tr>
+            <tr><td>@techunboxer</td><td><span class="pt-yt">YT</span></td><td>67K</td><td>3.9%</td><td>890</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ba-panel" style="margin-bottom:16px;">
+  <div class="ba-label ba-after">AFTER — Extended with GMV, orders, commission + re-invite trigger</div>
+  <div class="ui-frame">
+    <div class="ui-topbar">
+      <div class="ui-logo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;flex-shrink:0;">
+  <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#333333" transform="rotate(-8 12 16)"/>
+  <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+  <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+</svg><span style="font-size:13px;font-weight:800;color:#2D2D2D;letter-spacing:-0.2px;margin-left:5px;">INSENSE</span></div>
+      <div class="ui-nav"><span class="ui-nav-item on">Campaigns</span></div>
+      <div class="ui-avatar">HL</div>
+    </div>
+    <div class="ui-body">
+      <div class="ui-sidebar">
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Overview</div>
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Content</div>
+        <div class="ui-sidebar-item on"><div class="ui-sidebar-dot" style="background:var(--green);"></div>Performance<span class="ui-sidebar-badge">Live</span></div>
+        <div class="ui-sidebar-item"><div class="ui-sidebar-dot"></div>Payments</div>
+      </div>
+      <div class="ui-main">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <div>
+            <div class="ui-page-title">Summer Skincare — Affiliate Q3 · Performance</div>
+            <div style="font-size:10px; color:var(--muted);">Organic Affiliate · YouTube + Instagram · 30-day attribution · Data via GMC API + CAPI</div>
+          </div>
+          <span style="background:var(--green-lt); color:var(--green); font-size:10px; font-weight:700; padding:4px 10px; border-radius:7px;">● Live</span>
+        </div>
+        <!-- NEW KPI row -->
+        <div class="kpi-row">
+          <div class="kpi" style="border-top:2.5px solid var(--green);">
+            <div class="kpi-l">Total GMV <span class="chip chip-new" style="font-size:8px;">✦ New</span></div>
+            <div class="kpi-v">$23,850</div>
+            <div class="kpi-d kpi-up">↑ 18% this week</div>
+            <div class="kpi-bar"><div class="kpi-fill" style="width:72%; background:var(--green);"></div></div>
+          </div>
+          <div class="kpi" style="border-top:2.5px solid var(--pink);">
+            <div class="kpi-l">Commissions <span class="chip chip-new" style="font-size:8px;">✦ New</span></div>
+            <div class="kpi-v">$2,385</div>
+            <div class="kpi-d" style="color:var(--muted);">12% of GMV</div>
+            <div class="kpi-bar"><div class="kpi-fill" style="width:72%; background:var(--pink);"></div></div>
+          </div>
+          <div class="kpi" style="border-top:2.5px solid var(--orange);">
+            <div class="kpi-l">Orders <span class="chip chip-new" style="font-size:8px;">✦ New</span></div>
+            <div class="kpi-v">805</div>
+            <div class="kpi-d kpi-up">↑ 94 this week</div>
+            <div class="kpi-bar"><div class="kpi-fill" style="width:58%; background:var(--orange);"></div></div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-l">Total Views</div>
+            <div class="kpi-v">335K</div>
+            <div class="kpi-d" style="color:var(--muted);">unchanged</div>
+          </div>
+          <div class="kpi" style="border-top:2.5px solid var(--pink);">
+            <div class="kpi-l">Creators Active</div>
+            <div class="kpi-v">6</div>
+            <div class="kpi-d" style="color:var(--pink); font-weight:600;">2 re-invite ready ✦</div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item on">Creator breakdown</div>
+          <div class="tab-item">SKU breakdown</div>
+          <div class="tab-item">Attribution timeline</div>
+        </div>
+        <table class="perf-table">
+          <thead>
+            <tr>
+              <th>Creator</th>
+              <th>Platform</th>
+              <th>Views</th>
+              <th style="color:var(--muted);">Engmt</th>
+              <th style="color:var(--pink);">Orders ✦</th>
+              <th style="color:var(--pink);">GMV ✦</th>
+              <th style="color:var(--pink);">Commission ✦</th>
+              <th style="color:var(--pink);">Source ✦</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">@sarahcreates</td>
+              <td><span class="pt-yt">YT</span></td>
+              <td>124K</td>
+              <td style="color:var(--muted);">5.2%</td>
+              <td>287</td>
+              <td class="gmv">$8,420</td>
+              <td class="comm">$1,011</td>
+              <td><span class="src">GMC API</span></td>
+              <td><button class="re-btn">Re-invite ✦</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">@fitnessjane</td>
+              <td><span class="pt-ig">IG</span></td>
+              <td>89K</td>
+              <td style="color:var(--muted);">4.8%</td>
+              <td>156</td>
+              <td class="gmv">$4,680</td>
+              <td class="comm">$562</td>
+              <td><span class="src">CAPI</span></td>
+              <td><button class="re-btn">Re-invite ✦</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">@techunboxer</td>
+              <td><span class="pt-yt">YT</span></td>
+              <td>67K</td>
+              <td style="color:var(--muted);">3.9%</td>
+              <td>134</td>
+              <td class="gmv">$3,910</td>
+              <td class="comm">$469</td>
+              <td><span class="src">GMC API</span></td>
+              <td><button class="ui-btn-ghost" style="font-size:9.5px; padding:3px 8px;">Invite</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:10px; color:var(--muted); margin-top:8px; display:flex; gap:16px;">
+          <span>GMC API = YouTube sales (daily T+1) &nbsp;·&nbsp; CAPI = Instagram purchase events (fbclid-matched) &nbsp;·&nbsp; Re-invite ✦ = creator exceeded GMV threshold</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Annotation key -->
+<div style="background:white; border-radius:10px; border:1px solid var(--border); padding:14px 18px; margin-bottom:32px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; font-size:11.5px;">
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px dashed var(--ann-red); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-red);">New — GMV / Orders / Commission KPI cards</strong><br><span style="color:var(--text-lt);">5 new KPI cards added above the existing content metrics. Existing "Views" and "Creators Active" cards remain. New cards have coloured top border to distinguish.</span></div>
+  </div>
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px dashed var(--orange); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--orange);">Extended — 4 new table columns</strong><br><span style="color:var(--text-lt);">Orders, GMV, Commission, and Data Source columns added to existing creator table. Header text coloured pink to distinguish new columns from existing. Sortable by GMV.</span></div>
+  </div>
+  <div style="display:flex; gap:10px;">
+    <div style="width:12px; height:12px; border:2px solid var(--ann-green); border-radius:3px; flex-shrink:0; margin-top:2px;"></div>
+    <div><strong style="color:var(--ann-green);">Auto-triggered — Re-invite button</strong><br><span style="color:var(--text-lt);">Pink "Re-invite ✦" button appears automatically when a creator's GMV exceeds the threshold set in campaign setup. Opens a new long-term collab invite flow.</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: FIELD SPEC TABLE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="spec" class="sticky-hdr">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div><div class="section-title">Field spec — all new and extended UI elements</div><div class="section-sub">Complete reference for engineering handoff</div></div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<table class="spec-table">
+  <thead>
+    <tr><th>Screen</th><th>Field / Element</th><th>Type</th><th>Source / Logic</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Campaign type</td>
+      <td><span class="field">campaign_type = "organic_affiliate"</span></td>
+      <td>Enum selection</td>
+      <td>New value added to existing campaign_type enum. Conditionally reveals affiliate setup fields.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Campaign type</td>
+      <td><span class="field">commission_rate</span></td>
+      <td>Number input (%)</td>
+      <td>Brand-set. Default: 10%. Stored on campaign object. Propagated to all creator deals.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Campaign type</td>
+      <td><span class="field">attribution_window_days</span></td>
+      <td>Select (integer)</td>
+      <td>Default: 30 (YouTube) or 7 (Instagram) based on platform. Brand can override.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Campaign type</td>
+      <td><span class="field">platform_commerce_connection</span></td>
+      <td>OAuth flow</td>
+      <td>Google Merchant Center (YouTube) or Meta Commerce Manager (Instagram). Stored as token on brand account.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Brief builder</td>
+      <td><span class="field">selected_sku_ids[]</span></td>
+      <td>Multi-select picker</td>
+      <td>Product catalogue pulled from GMC or Commerce Manager API. Array of SKU IDs stored on campaign brief.</td>
+      <td><span class="tag-ext">EXTENDED</span></td>
+    </tr>
+    <tr>
+      <td>Brief builder</td>
+      <td><span class="field">base_fee_per_creator</span></td>
+      <td>Number input ($)</td>
+      <td>Optional fixed fee in addition to commission. Default: $0. Stored on campaign brief.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Brief builder</td>
+      <td>Commission + attribution display</td>
+      <td>Read-only display</td>
+      <td>Displays values set in campaign type step. Editable here to allow per-brief override.</td>
+      <td><span class="tag-ext">EXTENDED</span></td>
+    </tr>
+    <tr>
+      <td>Creator invite</td>
+      <td><span class="field">affiliate_link</span></td>
+      <td>Auto-generated string</td>
+      <td>Generated by Insense on deal creation. Format: insense.pro/a/{creator_code}{sku_code}. Unique per creator per campaign. Read-only for brand.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Creator invite</td>
+      <td>Commission column in deal table</td>
+      <td>Display (from campaign)</td>
+      <td>Shows commission_rate from campaign. Could be made per-creator editable in v2.</td>
+      <td><span class="tag-ext">EXTENDED</span></td>
+    </tr>
+    <tr>
+      <td>Creator invite</td>
+      <td>Invite email payload</td>
+      <td>Email template update</td>
+      <td>Existing invite email extended to include affiliate_link and commission_rate. No new email template needed — inject into existing template.</td>
+      <td><span class="tag-ext">EXTENDED</span></td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td><span class="field">gmv</span> KPI card</td>
+      <td>Computed (from API)</td>
+      <td>YouTube: from GMC Reporting API (youtube_creator_performance_view). Instagram: from CAPI purchase events. Aggregated across all creators.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td><span class="field">orders</span> KPI card</td>
+      <td>Computed (from API)</td>
+      <td>Count of confirmed purchase events attributed to campaign creators within attribution window.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td><span class="field">commission_owed</span> KPI card</td>
+      <td>Computed</td>
+      <td>gmv × commission_rate. Updated daily. Triggers wallet credit to creator on confirmed sale.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>GMV / Orders / Commission / Source columns</td>
+      <td>Table column additions</td>
+      <td>Four columns added to existing creator performance table. Per-creator values from GMC API (YouTube) or CAPI (Instagram). Data source shown for transparency.</td>
+      <td><span class="tag-ext">EXTENDED</span></td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td><span class="field">re_invite_cta</span> button</td>
+      <td>Conditional button</td>
+      <td>Appears when creator's gmv ≥ campaign re_invite_threshold (set in campaign setup, default: $500). Opens long-term collab invite flow.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+    <tr>
+      <td>All screens</td>
+      <td>Sidebar "Organic Affiliate" nav item</td>
+      <td>Filter/nav item</td>
+      <td>New item in Campaigns sidebar to filter to affiliate campaigns only. Existing nav structure unchanged.</td>
+      <td><span class="tag-new">NEW</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="background:var(--navy); border-radius:12px; padding:20px 24px; color:white; display:flex; align-items:center; gap:20px; margin-top:8px;">
+  <div style="font-size:28px;">📋</div>
+  <div>
+    <div style="font-size:13px; font-weight:700; margin-bottom:4px;">Next steps</div>
+    <div style="font-size:12px; color:#7A9AB5; line-height:1.7;">
+      1. Share this doc with Insense product/eng team for feedback on field naming and logic<br>
+      2. Get Grain demo frames as screenshot exports → overlay directly on these wireframes<br>
+      3. Move to Miro once connected for interactive annotation with stakeholders<br>
+      4. Validate SKU picker UX against existing TikTok Shop integration (same pattern, extend to GMC)
+    </div>
+  </div>
+</div>
+
+</div><!-- end doc-body -->
+
+<button class="print-btn" onclick="window.print()">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="8" rx="1.5" stroke="white" stroke-width="1.5"/><path d="M4 4V2.5A1.5 1.5 0 015.5 1h3A1.5 1.5 0 0110 2.5V4" stroke="white" stroke-width="1.5"/><rect x="4" y="8" width="6" height="1.5" rx=".75" fill="white"/></svg>
+  Export / Print
+</button>
+
+<script>
+document.querySelectorAll('.doc-nav-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.doc-nav-link').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+window.addEventListener('scroll', () => {
+  const sections = ['flow','screen1','screen2','screen3','screen4','spec'];
+  let current = 'flow';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) current = id;
+  });
+  document.querySelectorAll('.doc-nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
