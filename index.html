@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insense — Organic Affiliate Updated Model (Post-Danil)</title>
+<style>
+  :root {
+    --pink:#E91E8C; --pink-lt:#FCE8F4; --pink-border:#F5C4E0;
+    --cyan:#00C8E0; --cyan-lt:#E0F7FA;
+    --charcoal:#2D2D2D; --navy:#0D1B2A;
+    --body-bg:#F2F2F2; --card:#FFFFFF; --border:#E0E0E0; --border-lt:#EDEDED;
+    --muted:#9E9E9E; --text:#1A1A1A; --text-lt:#555;
+    --green:#2E7D32; --green-lt:#E8F5E9; --green-check:#4CAF50;
+    --orange:#F57C00; --orange-lt:#FFF3E0;
+    --red:#D32F2F; --red-lt:#FFEBEE;
+    --purple:#7C3AED; --purple-lt:#EDE7FF;
+    --yt:#CC0000; --ig:#E1306C; --tt:#1A1A1A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:var(--body-bg);color:var(--text);font-size:14px;}
+
+  /* NAV */
+  .doc-nav{position:sticky;top:0;z-index:200;background:var(--charcoal);display:flex;align-items:center;padding:0 24px;height:50px;gap:18px;border-bottom:3px solid var(--pink);}
+  .nav-logo{display:flex;align-items:center;gap:7px;}
+  .nav-logo svg{width:28px;height:28px;}
+  .nav-wordmark{font-size:14px;font-weight:800;color:#fff;letter-spacing:-.2px;}
+  .nav-div{width:1px;height:18px;background:#555;}
+  .nav-sub{font-size:11px;color:#888;}
+  .nav-links{display:flex;gap:3px;margin-left:12px;}
+  .nav-link{font-size:10.5px;color:#888;padding:4px 10px;border-radius:5px;cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap;}
+  .nav-link:hover{color:#fff;background:#3A3A3A;}
+  .nav-link.active{color:var(--pink);background:rgba(233,30,140,.12);}
+  .nav-badge{margin-left:auto;background:var(--pink);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+
+  /* LAYOUT */
+  .page{max-width:1320px;margin:0 auto;padding:24px 24px 80px;}
+
+  /* SECTION HEADERS */
+  .sec-hdr{display:flex;align-items:center;gap:14px;margin:40px 0 18px;position:sticky;top:50px;z-index:100;background:var(--body-bg);padding:5px 0;}
+  .sec-hdr:first-child{margin-top:0;}
+  .sec-num{width:30px;height:30px;border-radius:50%;background:var(--pink);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sec-title{font-size:18px;font-weight:700;color:var(--charcoal);}
+  .sec-sub{font-size:11.5px;color:var(--muted);margin-top:1px;}
+  .sec-line{flex:1;height:1px;background:var(--border);}
+
+  /* CALLOUTS */
+  .callout{border-radius:9px;padding:10px 14px;font-size:12px;line-height:1.6;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;}
+  .cl-info{background:#E3F2FD;border:1px solid #90CAF9;color:#1565C0;}
+  .cl-warn{background:#FFFDE7;border:1px solid #F9A825;color:#5D4037;}
+  .cl-new{background:var(--pink-lt);border:1px solid var(--pink-border);color:#8B1260;}
+  .cl-danil{background:var(--charcoal);border-left:4px solid var(--pink);color:#bbb;font-style:italic;border-radius:0;padding:10px 16px;}
+
+  /* BEFORE/AFTER */
+  .ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;}
+  .ba-wrap.full{grid-template-columns:1fr;}
+  .ba-panel{border-radius:12px;overflow:hidden;box-shadow:0 3px 16px rgba(0,0,0,.1);}
+  .ba-lbl{padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .lbl-b{background:#EEE;color:#757575;}
+  .lbl-a{background:var(--pink);color:#fff;}
+  .lbl-new{background:var(--charcoal);color:var(--pink);}
+
+  /* APP CHROME */
+  .app{background:var(--body-bg);}
+  .topbar{background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;height:46px;gap:12px;}
+  .tb-logo{display:flex;align-items:center;gap:5px;}
+  .tb-logo svg{width:22px;height:22px;}
+  .tb-wm{font-size:12.5px;font-weight:800;color:var(--charcoal);}
+  .tb-mid{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;color:var(--green);font-weight:500;}
+  .tb-acts{display:flex;align-items:center;gap:7px;}
+  .tb-prev{color:var(--pink);font-size:11.5px;font-weight:600;cursor:default;}
+  .tb-save{border:1.5px solid var(--charcoal);border-radius:6px;padding:4px 12px;font-size:11.5px;font-weight:600;background:#fff;color:var(--charcoal);cursor:default;}
+  .tb-send{border-radius:6px;padding:4px 12px;font-size:11.5px;font-weight:600;background:#BDBDBD;color:#fff;border:none;cursor:default;}
+
+  .app-body{display:flex;}
+  .stepper{width:200px;min-width:200px;background:#fff;border-right:1px solid var(--border-lt);padding:16px 0;}
+  .step{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:7px;margin-bottom:1px;cursor:default;}
+  .step.active{background:var(--body-bg);}
+  .step-l{display:flex;align-items:center;gap:9px;}
+  .sc{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;}
+  .sc.done{background:var(--green-check);border-color:var(--green-check);color:#fff;}
+  .sc.cur{background:var(--charcoal);border-color:var(--charcoal);color:#fff;font-size:8px;}
+  .sc.err{background:var(--red);border-color:var(--red);color:#fff;}
+  .sn{font-size:12.5px;color:var(--text);font-weight:500;}
+  .step.active .sn{font-weight:700;}
+  .sch{color:var(--muted);font-size:11px;}
+
+  .main{flex:1;padding:20px 24px;overflow:auto;}
+  .main-narrow{max-width:640px;}
+
+  /* CARDS */
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;}
+  .card-title{font-size:19px;font-weight:700;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--border-lt);margin-bottom:16px;}
+  .card-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:400;}
+
+  /* TILES */
+  .tiles{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px;}
+  .tile{border:1.5px solid var(--border);border-radius:9px;padding:12px 16px;background:#fff;cursor:default;min-width:120px;text-align:center;}
+  .tile-t{font-size:13px;font-weight:500;color:var(--text);}
+  .tile-s{font-size:11px;color:var(--muted);margin-top:2px;}
+  .tile.sel{border-color:var(--pink);background:var(--pink-lt);box-shadow:0 0 0 1px var(--pink);}
+  .tile.sel .tile-t{color:var(--pink);font-weight:600;}
+  .tile.dis{opacity:.45;background:#FAFAFA;}
+
+  /* TYPE TILES */
+  .type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:12px;}
+  .type-tile{border:1.5px solid var(--border);border-radius:10px;padding:14px;background:#fff;cursor:default;position:relative;}
+  .type-tile.sel{border-color:var(--pink);background:var(--pink-lt);}
+  .type-tile.new-t{border-color:var(--pink-border);border-style:dashed;}
+  .type-tile.new-t.sel{border-style:solid;}
+  .tt-hdr{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+  .tt-icon{font-size:16px;}
+  .tt-name{font-size:13px;font-weight:600;color:var(--text);}
+  .type-tile.sel .tt-name{color:var(--pink);}
+  .tt-desc{font-size:11px;color:var(--text-lt);line-height:1.5;}
+  .tt-badge{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;}
+  .b-auth{background:#FFFDE7;color:#7A5700;border:1px solid #F9A825;}
+  .b-new{background:var(--pink);color:#fff;}
+  .b-ev{background:var(--cyan-lt);color:#006064;border:1px solid var(--cyan);}
+
+  /* FIELDS */
+  .f-label{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+  .f-hint{font-size:11px;color:var(--muted);margin-bottom:8px;}
+  .f-input{width:100%;border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12.5px;color:var(--text);background:#fff;}
+  .f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .f-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+  .f-sec{margin-bottom:14px;}
+  .f-divider{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 10px;display:flex;align-items:center;gap:8px;}
+  .f-divider::before,.f-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+  .dropdown{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12.5px;color:var(--muted);background:#fff;cursor:default;}
+
+  /* NEW FIELD HIGHLIGHT */
+  .new-f{background:var(--pink-lt);border:1.5px solid var(--pink-border);border-radius:8px;padding:12px;}
+  .new-f-lbl{font-size:9px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+  .new-f-lbl::before{content:'✦ NEW  ';background:var(--pink);color:#fff;font-size:8px;padding:1px 5px;border-radius:3px;margin-right:5px;}
+
+  /* TOGGLE */
+  .toggle-row{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:#fff;}
+  .toggle-icon{font-size:15px;margin-top:1px;flex-shrink:0;}
+  .toggle-c{flex:1;}
+  .toggle-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+  .toggle-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+  .toggle-sw{flex-shrink:0;width:36px;height:20px;background:#BDBDBD;border-radius:10px;position:relative;cursor:default;}
+  .toggle-sw.on{background:var(--pink);}
+  .toggle-k{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;}
+  .toggle-sw.on .toggle-k{left:18px;}
+
+  /* SKU PICKER */
+  .sku-picker{border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:6px;}
+  .sku-search{display:flex;align-items:center;gap:7px;padding:7px 11px;background:#FAFAFA;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);}
+  .sku-row{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid var(--border-lt);}
+  .sku-row:last-child{border-bottom:none;}
+  .sku-img{width:30px;height:30px;border-radius:6px;background:var(--pink-lt);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+  .sku-name{font-size:12px;font-weight:500;color:var(--text);}
+  .sku-price{font-size:10.5px;color:var(--muted);}
+  .sku-check{margin-left:auto;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;}
+  .sku-check.on{background:var(--pink);border-color:var(--pink);display:flex;align-items:center;justify-content:center;}
+
+  /* COMM GRID */
+  .comm-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+  .comm-box{background:#FAFAFA;border:1px solid var(--border);border-radius:8px;padding:10px;}
+  .comm-l{font-size:9.5px;color:var(--muted);font-weight:500;margin-bottom:4px;}
+  .comm-v{font-size:15px;font-weight:700;color:var(--text);}
+  .comm-in{border:none;background:transparent;font-size:15px;font-weight:700;color:var(--text);width:50px;outline:none;}
+
+  /* FEE RANGE */
+  .fee-wrap{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+  .fee-in{display:flex;align-items:center;border:1px solid var(--border);border-radius:7px;overflow:hidden;flex:1;}
+  .fee-sym{padding:8px 9px;color:var(--muted);font-size:12.5px;border-right:1px solid var(--border);background:#FAFAFA;}
+  .fee-in input{border:none;padding:8px 9px;font-size:12.5px;color:var(--muted);flex:1;outline:none;}
+  .fee-dash{color:var(--muted);font-size:15px;}
+
+  /* CREATOR ROWS */
+  .cr-hdr{display:grid;gap:0;padding:0 7px 6px;border-bottom:1px solid var(--border);margin-bottom:4px;}
+  .cr-hdr span{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+  .cr-hdr .new-col{color:var(--pink);}
+  .cr-row{display:grid;gap:0;align-items:center;padding:7px 7px;border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:4px;}
+  .c-av{width:28px;height:28px;border-radius:50%;background:var(--pink-lt);color:var(--pink);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .c-handle{font-size:12px;font-weight:600;color:var(--text);}
+  .c-meta{font-size:10px;color:var(--muted);}
+  .aff-chip{font-size:9.5px;color:var(--pink);background:var(--pink-lt);border:1px solid var(--pink-border);padding:2px 6px;border-radius:4px;font-family:monospace;white-space:nowrap;}
+  .st-sent{background:var(--green-lt);color:var(--green);font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:6px;display:inline-block;}
+  .st-pend{background:var(--orange-lt);color:var(--orange);font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:6px;display:inline-block;}
+  .inv-btn{background:var(--pink);color:#fff;border:none;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:600;cursor:default;}
+  .pt{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:7px;}
+  .pt-yt{background:#FFEEEE;color:var(--yt);}
+  .pt-ig{background:#FFF0F5;color:var(--ig);}
+  .pt-tt{background:#F0F0F0;color:#222;}
+
+  /* UPLOAD ZONE */
+  .upload-zone{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;background:#FAFAFA;cursor:default;transition:all .15s;}
+  .upload-zone.highlight{border-color:var(--pink);background:var(--pink-lt);}
+  .upload-icon{font-size:28px;margin-bottom:8px;}
+  .upload-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .upload-sub{font-size:11.5px;color:var(--muted);}
+  .upload-btn{display:inline-block;background:var(--pink);color:#fff;border-radius:7px;padding:7px 18px;font-size:12px;font-weight:600;cursor:default;margin-top:10px;}
+
+  /* OUTREACH SEQUENCE */
+  .seq-step{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:7px;position:relative;}
+  .seq-num{width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .seq-line{position:absolute;left:21px;top:34px;width:2px;height:calc(100% + 7px);background:var(--pink-border);}
+  .seq-c{flex:1;}
+  .seq-title{font-size:12.5px;font-weight:600;color:var(--text);}
+  .seq-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+  .seq-delay{font-size:10px;background:var(--pink-lt);color:var(--pink);border:1px solid var(--pink-border);padding:2px 7px;border-radius:5px;font-weight:600;float:right;}
+  .seq-icon{font-size:15px;flex-shrink:0;margin-top:2px;}
+
+  /* PERFORMANCE */
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
+  .kpi{background:#fff;border:1px solid var(--border);border-radius:9px;padding:12px;}
+  .kpi.new-kpi{border-top:3px solid var(--pink);}
+  .kpi-l{font-size:9.5px;color:var(--muted);font-weight:600;margin-bottom:4px;}
+  .kpi-v{font-size:18px;font-weight:800;color:var(--text);line-height:1;}
+  .kpi-d{font-size:9px;margin-top:3px;color:var(--muted);}
+  .kpi-up{color:var(--green);}
+  .kpi-bar{height:3px;background:var(--border);border-radius:2px;margin-top:7px;}
+  .kpi-fill{height:3px;border-radius:2px;}
+  .perf-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .perf-table th{text-align:left;color:var(--muted);font-weight:700;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:6px 8px;border-bottom:1px solid var(--border);}
+  .perf-table th.nc{color:var(--pink);}
+  .perf-table td{padding:8px 8px;border-bottom:1px solid var(--border-lt);vertical-align:middle;}
+  .perf-table tr:last-child td{border-bottom:none;}
+  .gmv{font-weight:800;color:var(--green);}
+  .comm-c{font-weight:700;color:var(--pink);}
+  .re-btn{background:var(--pink);color:#fff;border:none;border-radius:5px;padding:3px 8px;font-size:9.5px;font-weight:700;cursor:default;}
+  .src-tag{font-size:9px;background:#F5F5F5;color:var(--muted);border:1px solid var(--border);padding:1px 5px;border-radius:4px;}
+
+  /* PRODUCT CATALOGUE TABLE */
+  .prod-table{width:100%;border-collapse:collapse;font-size:12px;}
+  .prod-table th{text-align:left;color:var(--muted);font-weight:700;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:7px 10px;border-bottom:1px solid var(--border);background:var(--body-bg);}
+  .prod-table td{padding:9px 10px;border-bottom:1px solid var(--border-lt);vertical-align:middle;}
+  .prod-table tr:last-child td{border-bottom:none;}
+  .prod-status{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:7px;}
+  .ps-live{background:var(--green-lt);color:var(--green);}
+  .ps-pause{background:var(--orange-lt);color:var(--orange);}
+  .ps-new{background:var(--pink-lt);color:var(--pink);}
+
+  /* ANNOTATION */
+  .ann-row{display:flex;align-items:center;gap:7px;margin-bottom:9px;flex-wrap:wrap;}
+  .ann{display:inline-flex;align-items:center;gap:4px;border:2px solid #FF3B30;border-radius:5px;background:#fff;padding:3px 8px;font-size:10px;font-weight:700;color:#FF3B30;white-space:nowrap;box-shadow:0 2px 7px rgba(255,59,48,.15);}
+  .ann::before{content:'NEW';font-size:7.5px;background:#FF3B30;color:#fff;padding:1px 4px;border-radius:2px;font-weight:800;}
+  .ann-ext{border-color:#F57C00;color:#F57C00;box-shadow:0 2px 7px rgba(245,124,0,.15);}
+  .ann-ext::before{content:'EXTENDED';background:#F57C00;}
+  .ann-auto{border-color:#2E7D32;color:#2E7D32;box-shadow:0 2px 7px rgba(46,125,50,.15);}
+  .ann-auto::before{content:'AUTO';background:#2E7D32;}
+  .hl{border:2px dashed #FF3B30;border-radius:8px;padding:10px;background:rgba(255,59,48,.02);margin-bottom:9px;}
+  .hl-ext{border-color:#F57C00;background:rgba(245,124,0,.02);}
+  .hl-auto{border-color:#2E7D32;background:rgba(46,125,50,.02);}
+
+  /* ANNOTATION KEY */
+  .ann-key{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:11px;}
+  .ak-item{display:flex;gap:8px;align-items:flex-start;}
+  .ak-sw{width:12px;height:12px;border-radius:2px;flex-shrink:0;margin-top:2px;}
+
+  /* NAV BOTTOM */
+  .nav-bottom{display:flex;justify-content:center;gap:10px;padding:16px 0;}
+  .btn-p{border:1.5px solid var(--charcoal);border-radius:8px;padding:8px 24px;font-size:13px;font-weight:500;background:#fff;color:var(--charcoal);cursor:default;}
+  .btn-n{border-radius:8px;padding:8px 24px;font-size:13px;font-weight:600;background:var(--pink);color:#fff;border:none;cursor:default;}
+  .btn-n.dis{background:#BDBDBD;}
+
+  /* POOL CARDS */
+  .pool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;}
+  .pool-card{border:1px solid var(--border);border-radius:10px;padding:14px;background:#fff;cursor:default;}
+  .pool-card.active{border-color:var(--pink);background:var(--pink-lt);}
+  .pool-name{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .pool-num{font-size:22px;font-weight:800;color:var(--pink);}
+  .pool-sub{font-size:10.5px;color:var(--muted);}
+  .pool-card.active .pool-num{color:var(--pink);}
+
+  /* EMAIL PREVIEW */
+  .email-preview{background:#F9F9F9;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:11.5px;color:var(--text-lt);line-height:1.6;}
+  .email-subject{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .email-tag{display:inline-block;background:var(--pink-lt);color:var(--pink);border:1px solid var(--pink-border);font-size:10px;padding:1px 5px;border-radius:3px;font-family:monospace;}
+
+  /* PRINT */
+  .print-btn{position:fixed;bottom:22px;right:22px;background:var(--pink);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(233,30,140,.35);z-index:300;display:flex;align-items:center;gap:7px;}
+  @media print{.doc-nav,.print-btn{display:none;}.page{padding:10px;max-width:100%;}.ba-wrap{grid-template-columns:1fr;}}
+
+  .main{overflow-y:auto;max-height:480px;}
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+  <div class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none">
+      <rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/>
+      <rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/>
+      <polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/>
+    </svg>
+    <span class="nav-wordmark">INSENSE</span>
+  </div>
+  <div class="nav-div"></div>
+  <span class="nav-sub">Organic Affiliate — Updated Wireframes (Post-Danil)</span>
+  <div class="nav-links">
+    <a class="nav-link active" href="#s1">Campaign Info</a>
+    <a class="nav-link" href="#s2">Payment Terms</a>
+    <a class="nav-link" href="#s3">Bulk Upload</a>
+    <a class="nav-link" href="#s4">Outreach Flow</a>
+    <a class="nav-link" href="#s5">Product Catalogue</a>
+    <a class="nav-link" href="#s6">Performance</a>
+  </div>
+  <div class="nav-badge">Post-Danil v4 · May 2026</div>
+</nav>
+
+<div class="page">
+
+<div class="callout cl-danil" style="margin-top:0;">
+  <span>💬</span>
+  <div>"A new, fourth campaign type for affiliate marketing will be added. The affiliate campaign flow requires email sequence outreaches and IG direct messages integrated into the briefing system — making outreach functionality central. Brands need the ability to bring their own creators to manage them." — Danil, CEO, Insense</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 1: CAMPAIGN INFO — UPDATED with 4th type + evergreen -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s1" class="sec-hdr">
+  <div class="sec-num">01</div>
+  <div><div class="sec-title">Campaign Info — 4th Campaign Type + Evergreen Mode</div><div class="sec-sub">Organic Affiliate confirmed as 4th type · Evergreen always-on mode added · Commerce platform connector</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-new">
+  <span>🔑</span>
+  <div><strong>What's new vs previous version:</strong> The campaign type is now placed within the existing Campaign Info step (not as a standalone step). Evergreen mode added alongside standard time-bound campaigns. Three commerce platform connectors: Shopify, Google Merchant Center, Meta Commerce Manager.</div>
+</div>
+
+<div class="ba-wrap">
+  <!-- BEFORE -->
+  <div class="ba-panel">
+    <div class="ba-lbl lbl-b">BEFORE — Campaign Info today</div>
+    <div class="app">
+      <div class="topbar">
+        <div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div>
+        <div class="tb-mid">✓ Brief saved</div>
+        <div class="tb-acts"><span class="tb-prev">👁 Preview</span><button class="tb-save">Save as draft</button><button class="tb-send">Send to Review</button></div>
+      </div>
+      <div class="app-body">
+        <div class="stepper">
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div><span class="sch">›</span></div>
+          <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Campaign info</span></div><span class="sch">›</span></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Creators</span></div><span class="sch">›</span></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Deliverables</span></div><span class="sch">›</span></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Payment terms</span></div><span class="sch">›</span></div>
+        </div>
+        <div class="main">
+          <div class="card">
+            <div class="card-title">Campaign info</div>
+            <div class="f-label" style="margin-bottom:8px;">Campaign Goal</div>
+            <div class="tiles" style="margin-bottom:14px;">
+              <div class="tile sel"><div class="tile-t">Conversions & Sales</div></div>
+              <div class="tile"><div class="tile-t">Awareness & Reach</div></div>
+              <div class="tile"><div class="tile-t">Multi-Channel UGC</div></div>
+            </div>
+            <div class="f-label" style="margin-bottom:8px;">Platform</div>
+            <div class="tiles" style="margin-bottom:14px;">
+              <div class="tile sel" style="display:flex;align-items:center;gap:6px;"><span>𝕄</span><span class="tile-t">Meta</span></div>
+              <div class="tile" style="display:flex;align-items:center;gap:6px;"><span>♪</span><span class="tile-t">TikTok</span></div>
+            </div>
+            <div class="f-label" style="margin-bottom:8px;">Campaign Type</div>
+            <div class="type-grid">
+              <div class="type-tile"><div class="tt-hdr"><span class="tt-icon">🛍</span><span class="tt-name">TikTok Shop</span></div><div class="tt-desc">UGC for Shop and Spark Ads.</div><div class="tt-badge b-auth">⇄ Authorize TikTok Shop</div></div>
+              <div class="type-tile dis"><div class="tt-hdr"><span class="tt-icon">⚡</span><span class="tt-name">TikTok Spark Ads</span></div><div class="tt-desc">Top-performing content into Spark Ads.</div></div>
+            </div>
+            <div class="type-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="type-tile sel" style="border-color:var(--red);"><div class="tt-hdr"><span class="tt-icon">∞</span><span class="tt-name">Meta Partnership Ads</span></div><div class="tt-desc">In-feed ads via influencer handles (Whitelisting).</div><div style="color:var(--red);font-size:11px;margin-top:6px;">⊗ Field required</div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Next</button></div>
+    </div>
+  </div>
+
+  <!-- AFTER -->
+  <div class="ba-panel">
+    <div class="ba-lbl lbl-a">AFTER — Organic Affiliate + Evergreen mode</div>
+    <div class="app">
+      <div class="topbar">
+        <div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div>
+        <div class="tb-mid">✓ Brief saved</div>
+        <div class="tb-acts"><span class="tb-prev">👁 Preview</span><button class="tb-save">Save as draft</button><button class="tb-send">Send to Review</button></div>
+      </div>
+      <div class="app-body">
+        <div class="stepper">
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div></div>
+          <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Campaign info</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Creators</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Deliverables</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Payment terms</span></div></div>
+        </div>
+        <div class="main">
+          <div class="card">
+            <div class="card-title">Campaign info</div>
+            <div class="f-label" style="margin-bottom:8px;">Campaign Goal</div>
+            <div class="tiles" style="margin-bottom:14px;">
+              <div class="tile sel"><div class="tile-t">Conversions & Sales</div></div>
+              <div class="tile"><div class="tile-t">Awareness & Reach</div></div>
+              <div class="tile"><div class="tile-t">Multi-Channel UGC</div></div>
+            </div>
+            <div class="f-label" style="margin-bottom:8px;">Platform</div>
+            <div class="tiles" style="margin-bottom:14px;">
+              <div class="tile sel" style="display:flex;align-items:center;gap:6px;"><span>𝕄</span><span class="tile-t">Meta</span></div>
+              <div class="tile" style="display:flex;align-items:center;gap:6px;"><span>♪</span><span class="tile-t">TikTok</span></div>
+            </div>
+            <div class="f-label" style="margin-bottom:8px;">Campaign Type</div>
+            <div class="type-grid">
+              <div class="type-tile"><div class="tt-hdr"><span class="tt-icon">🛍</span><span class="tt-name">TikTok Shop</span></div><div class="tt-desc">UGC for Shop and Spark Ads.</div><div class="tt-badge b-auth">⇄ Authorize TikTok Shop</div></div>
+              <div class="type-tile dis"><div class="tt-hdr"><span class="tt-icon">⚡</span><span class="tt-name">TikTok Spark Ads</span></div><div class="tt-desc">Top-performing content into Spark Ads.</div></div>
+            </div>
+            <div class="type-grid">
+              <div class="type-tile"><div class="tt-hdr"><span class="tt-icon">∞</span><span class="tt-name">Meta Partnership Ads</span></div><div class="tt-desc">In-feed ads via influencer handles (Whitelisting).</div></div>
+              <!-- NEW: Organic Affiliate tile -->
+              <div class="hl" style="padding:0;border-radius:10px;overflow:hidden;margin-bottom:0;">
+                <div class="type-tile new-t sel" style="border:none;border-radius:0;">
+                  <div class="tt-hdr"><span class="tt-icon">🔗</span><span class="tt-name" style="color:var(--pink);">Organic Affiliate</span></div>
+                  <div class="tt-desc">Creators tag products in organic posts. Commission on resulting sales. No fixed content fee required.</div>
+                  <div class="tt-badge b-new">✦ New</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Affiliate sub-options revealed on selection -->
+            <div class="f-divider">✦ Affiliate options — revealed on selection</div>
+            <div class="f-label" style="margin-bottom:6px;">Campaign mode</div>
+            <div class="tiles" style="margin-bottom:12px;">
+              <div class="tile sel"><div class="tile-t">Standard</div><div class="tile-s">Time-bound campaign</div></div>
+              <div class="tile" style="border-color:var(--cyan);"><div class="tile-t" style="color:#006064;">Evergreen ✦</div><div class="tile-s">Always-on programme</div></div>
+            </div>
+            <div class="f-label" style="margin-bottom:6px;">Connect commerce platform</div>
+            <div class="tiles" style="margin-bottom:0;">
+              <div class="tile sel" style="display:flex;align-items:center;gap:6px;text-align:left;"><span>🛒</span><div><div class="tile-t" style="color:var(--pink);">Shopify</div><div class="tile-s">Auto-sync catalogue</div></div></div>
+              <div class="tile" style="display:flex;align-items:center;gap:6px;text-align:left;"><span>🛍</span><div><div class="tile-t">Google MC</div><div class="tile-s">YouTube Shopping</div></div></div>
+              <div class="tile" style="display:flex;align-items:center;gap:6px;text-align:left;"><span>∞</span><div><div class="tile-t">Meta Commerce</div><div class="tile-s">Instagram Shopping</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Next</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="ann-key">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Organic Affiliate campaign type tile</strong><br><span style="color:var(--text-lt);">4th tile in the Campaign Type grid. Selecting reveals the affiliate sub-options below. Placement within Campaign Info (not a separate step) matches the existing UX pattern.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #006064;background:var(--cyan-lt);"></div><div><strong style="color:#006064;">New — Evergreen mode</strong><br><span style="color:var(--text-lt);">Always-on option alongside standard time-bound. Creator stays enrolled indefinitely — key for long-term high-performer relationships. Danil confirmed this is required.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Commerce platform connector</strong><br><span style="color:var(--text-lt);">Shopify (auto-sync), Google Merchant Center (YouTube), Meta Commerce Manager (Instagram). Selection determines which product catalogue is pulled into the brief.</span></div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 2: PAYMENT TERMS — upgraded commission processing -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s2" class="sec-hdr">
+  <div class="sec-num">02</div>
+  <div><div class="sec-title">Payment Terms — Commissions Now Processed by Insense</div><div class="sec-sub">The existing "Insense won't process it" toggle is upgraded to automated commission disbursement</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-warn">
+  <span>📌</span>
+  <div><strong>The most important change in the whole flow.</strong> The existing Sales commissions toggle says "Insense won't process it." For Organic Affiliate campaigns this is upgraded: Insense actually processes commission automatically, triggered by confirmed sale events from the connected platform APIs. Product selection (SKU picker) is also added here.</div>
+</div>
+
+<div class="ba-wrap">
+  <div class="ba-panel">
+    <div class="ba-lbl lbl-b">BEFORE — Payment Terms today</div>
+    <div class="app">
+      <div class="topbar"><div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div><div class="tb-mid">✓ Brief saved</div><div class="tb-acts"><button class="tb-save">Save as draft</button><button class="tb-send">Send to Review</button></div></div>
+      <div class="app-body">
+        <div class="stepper">
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Campaign info</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Creators</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Deliverables</span></div></div>
+          <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Payment terms</span></div></div>
+        </div>
+        <div class="main">
+          <div class="card main-narrow">
+            <div class="card-title">Payment terms</div>
+            <div class="f-label" style="margin-bottom:7px;">Fee range per creator</div>
+            <div class="fee-wrap">
+              <div class="fee-in"><span class="fee-sym">$</span><input placeholder="Min" /></div>
+              <span class="fee-dash">—</span>
+              <div class="fee-in"><span class="fee-sym">$</span><input placeholder="Max" /></div>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-icon">🏷</span>
+              <div class="toggle-c">
+                <div class="toggle-title">Sales commissions</div>
+                <div class="toggle-desc">Offer a sales commission to further motivate creators. Send it via "Make an extra payment" in chat — <strong>Insense won't process it.</strong></div>
+              </div>
+              <div class="toggle-sw"><div class="toggle-k"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Send to Review</button></div>
+    </div>
+  </div>
+
+  <div class="ba-panel">
+    <div class="ba-lbl lbl-a">AFTER — Automated commission + SKU picker</div>
+    <div class="app">
+      <div class="topbar"><div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div><div class="tb-mid">✓ Brief saved</div><div class="tb-acts"><button class="tb-save">Save as draft</button><button class="tb-send">Send to Review</button></div></div>
+      <div class="app-body">
+        <div class="stepper">
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Campaign info</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Creators</span></div></div>
+          <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Deliverables</span></div></div>
+          <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Payment terms</span></div></div>
+        </div>
+        <div class="main">
+          <div class="card">
+            <div class="card-title">Payment terms</div>
+            <div class="f-label" style="margin-bottom:7px;">Fee range per creator <span style="font-size:11px;color:var(--muted);font-weight:400;">(optional — base fee on top of commission)</span></div>
+            <div class="fee-wrap">
+              <div class="fee-in"><span class="fee-sym">$</span><input placeholder="Min" /></div>
+              <span class="fee-dash">—</span>
+              <div class="fee-in"><span class="fee-sym">$</span><input placeholder="Max" /></div>
+            </div>
+            <div class="ann-row"><span class="ann-ext">EXTENDED — Sales commissions: now processed by Insense</span></div>
+            <div class="hl-ext" style="margin-bottom:12px;">
+              <div class="toggle-row" style="border:none;padding:0;margin-bottom:11px;">
+                <span class="toggle-icon">🏷</span>
+                <div class="toggle-c">
+                  <div class="toggle-title">Sales commissions</div>
+                  <div class="toggle-desc" style="color:var(--green);font-weight:500;">Insense will automatically process commission payments, triggered by confirmed sale events from the connected platform.</div>
+                </div>
+                <div class="toggle-sw on"><div class="toggle-k" style="left:18px;"></div></div>
+              </div>
+              <div class="comm-grid">
+                <div class="comm-box"><div class="comm-l">Commission rate</div><div class="comm-v"><input class="comm-in" value="12" />%</div></div>
+                <div class="comm-box"><div class="comm-l">Base fee (optional)</div><div class="comm-v">$<input class="comm-in" value="0" /> <span style="font-size:10px;color:var(--muted);">/creator</span></div></div>
+                <div class="comm-box"><div class="comm-l">Attribution window</div><div class="comm-v" style="font-size:13px;">30 <span style="font-size:11px;color:var(--muted);">days</span></div></div>
+              </div>
+              <div style="font-size:10.5px;padding:8px 10px;background:var(--green-lt);border-radius:6px;border:1px solid #A5D6A7;color:var(--green);margin-top:8px;">✓ Commission auto-credited to creator Insense wallet within 24h of confirmed sale. Refunds auto-cancel commission.</div>
+            </div>
+            <div class="ann-row"><span class="ann">New — Product selection</span></div>
+            <div class="f-label" style="margin-bottom:5px;">Products creators can tag <span style="font-size:10px;background:var(--pink-lt);color:var(--pink);border:1px solid var(--pink-border);padding:1px 6px;border-radius:4px;margin-left:4px;">Auto-synced from Shopify</span></div>
+            <div class="sku-picker">
+              <div class="sku-search">🔍 Search your product catalogue (47 products synced)...</div>
+              <div class="sku-row"><div class="sku-img">🧴</div><div style="flex:1;"><div class="sku-name">Vitamin C Brightening Serum 30ml</div><div class="sku-price">SKU-4821 · $34.99 · Stock: 284</div></div><div class="sku-check on"><svg viewBox="0 0 10 8" fill="none" width="9"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
+              <div class="sku-row"><div class="sku-img">💧</div><div style="flex:1;"><div class="sku-name">Hyaluronic Acid Moisturiser 50ml</div><div class="sku-price">SKU-4822 · $29.99 · Stock: 156</div></div><div class="sku-check on"><svg viewBox="0 0 10 8" fill="none" width="9"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
+              <div class="sku-row"><div class="sku-img">☀️</div><div style="flex:1;"><div class="sku-name">SPF 50 Daily Sunscreen 75ml</div><div class="sku-price">SKU-4823 · $24.99 · Stock: 42</div></div><div class="sku-check"></div></div>
+            </div>
+            <div style="font-size:10.5px;color:var(--muted);margin-top:4px;">2 products selected · 47 total in catalogue · Creators can tag any selected product</div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Send to Review</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="ann-key" style="grid-template-columns:1fr 1fr;">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #F57C00;background:var(--orange-lt);"></div><div><strong style="color:#F57C00;">Extended — Sales commissions toggle</strong><br><span style="color:var(--text-lt);">Description changes from "Insense won't process it" to automated processing. Toggle expands to show commission rate (12%), optional base fee, attribution window. Commission auto-disbursed on sale confirmation.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — SKU picker with Shopify auto-sync</strong><br><span style="color:var(--text-lt);">Product catalogue auto-ingested from connected Shopify store (47 products example). Shows stock levels alongside pricing — enables Danil's vision of margin/stock-informed product selection.</span></div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 3: BULK UPLOAD — NEW SCREEN (Danil priority) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s3" class="sec-hdr">
+  <div class="sec-num">03</div>
+  <div><div class="sec-title">Creators — Bulk Upload Existing Affiliates (New Screen)</div><div class="sec-sub">Brands upload their existing 10–100 affiliates · Insense enriches profiles · Links auto-generated</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-danil">
+  <span>💬</span>
+  <div>"Many brands already have an established base of affiliates — 10 to 100 people. The platform needs the ability for brands to bring their own creators to manage them. Most D2C affiliate platforms initially focused on managing existing affiliates before developing discovery capabilities. The majority of revenue is expected to come from these existing relationships."  — Danil</div>
+</div>
+
+<div class="ba-panel" style="margin-bottom:14px;">
+  <div class="ba-lbl lbl-new">NEW SCREEN — Bulk Upload (Creators step, Organic Affiliate campaigns only)</div>
+  <div class="app">
+    <div class="topbar"><div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div><div class="tb-mid">✓ Brief saved</div><div class="tb-acts"><button class="tb-save">Save as draft</button></div></div>
+    <div class="app-body">
+      <div class="stepper">
+        <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Campaign info</span></div></div>
+        <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Creators</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Deliverables</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Payment terms</span></div></div>
+      </div>
+      <div class="main" style="max-height:500px;">
+        <div class="card">
+          <div class="card-title">Creators <span class="card-sub">How do you want to find creators for this affiliate campaign?</span></div>
+          <!-- Source selector — NEW -->
+          <div class="ann-row"><span class="ann">New — Creator source selector for Organic Affiliate</span></div>
+          <div class="tiles" style="margin-bottom:18px;">
+            <div class="tile sel" style="text-align:left;padding:10px 14px;"><div style="font-size:13px;font-weight:600;color:var(--pink);">⬆ Upload my affiliates</div><div style="font-size:10.5px;color:var(--text-lt);margin-top:2px;">I have existing creators to manage</div></div>
+            <div class="tile" style="text-align:left;padding:10px 14px;"><div style="font-size:13px;font-weight:600;">🔍 Discover new creators</div><div style="font-size:10.5px;color:var(--text-lt);margin-top:2px;">Find affiliates from our network</div></div>
+            <div class="tile" style="text-align:left;padding:10px 14px;"><div style="font-size:13px;font-weight:600;">✦ Browse marketplace</div><div style="font-size:10.5px;color:var(--text-lt);margin-top:2px;">Insense vetted 120K creators</div></div>
+          </div>
+
+          <!-- Upload zone -->
+          <div class="hl">
+            <div class="f-label" style="margin-bottom:8px;">Upload creator list</div>
+            <div class="upload-zone">
+              <div class="upload-icon">📋</div>
+              <div class="upload-title">Drop your CSV file here</div>
+              <div class="upload-sub">Include columns: handle / email / platform (Instagram, YouTube, TikTok)</div>
+              <div class="upload-btn">Choose file</div>
+              <div style="font-size:10.5px;color:var(--muted);margin-top:8px;">Or paste handles directly ↓</div>
+            </div>
+            <div style="margin-top:10px;">
+              <div class="f-label" style="margin-bottom:5px;">Paste handles (one per line)</div>
+              <textarea class="f-input" style="height:64px;resize:none;font-family:monospace;font-size:11.5px;" placeholder="@sarahcreates&#10;@fitnessjane&#10;@techunboxer_uk&#10;..."></textarea>
+            </div>
+          </div>
+
+          <!-- Uploaded creator results -->
+          <div style="margin-top:16px;">
+            <div class="f-label" style="margin-bottom:8px;">Uploaded creators (4 found · 3 matched in Insense database · 1 new)</div>
+            <div style="display:grid;grid-template-columns:1.6fr .55fr .6fr 1.2fr .7fr;gap:0;padding:0 7px 6px;border-bottom:1px solid var(--border);margin-bottom:5px;">
+              <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Creator</span>
+              <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Platform</span>
+              <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Followers</span>
+              <span style="font-size:9px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:.05em;">Affiliate link ✦</span>
+              <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Status</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1.6fr .55fr .6fr 1.2fr .7fr;align-items:center;padding:7px 7px;border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:4px;">
+              <div style="display:flex;align-items:center;gap:8px;"><div class="c-av">SC</div><div><div class="c-handle">@sarahcreates</div><div class="c-meta">In Insense</div></div></div>
+              <span class="pt pt-yt">YT</span><span style="font-size:11.5px;">892K</span>
+              <span class="aff-chip">insense.pro/a/sc4821</span>
+              <span class="st-sent">Ready</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1.6fr .55fr .6fr 1.2fr .7fr;align-items:center;padding:7px 7px;border:1px solid var(--border);border-radius:8px;background:#fff;margin-bottom:4px;">
+              <div style="display:flex;align-items:center;gap:8px;"><div class="c-av" style="background:var(--pink-lt);color:var(--ig);">FJ</div><div><div class="c-handle">@fitnessjane</div><div class="c-meta">In Insense</div></div></div>
+              <span class="pt pt-ig">IG</span><span style="font-size:11.5px;">445K</span>
+              <span class="aff-chip">insense.pro/a/fj4821</span>
+              <span class="st-sent">Ready</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1.6fr .55fr .6fr 1.2fr .7fr;align-items:center;padding:7px 7px;border:1px solid var(--border);border-radius:8px;background:#FFFDE7;margin-bottom:4px;border-color:#F9A825;">
+              <div style="display:flex;align-items:center;gap:8px;"><div class="c-av" style="background:#FFFDE7;color:var(--orange);">MK</div><div><div class="c-handle">@mktravellife</div><div class="c-meta" style="color:var(--orange);">Not on Insense yet</div></div></div>
+              <span class="pt pt-ig">IG</span><span style="font-size:11.5px;">128K</span>
+              <span class="aff-chip">insense.pro/a/mk4821</span>
+              <span class="st-pend">Invite to join</span>
+            </div>
+            <div style="font-size:10.5px;color:var(--muted);margin-top:6px;">✦ Affiliate links generated for all creators — even those not yet on Insense. New creators receive an invite to join the platform alongside their brief.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Next</button></div>
+  </div>
+</div>
+
+<div class="ann-key" style="grid-template-columns:1fr 1fr;">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Creator source selector</strong><br><span style="color:var(--text-lt);">Three-tile selector at top of Creators step for Organic Affiliate campaigns: Upload my affiliates / Discover new / Browse marketplace. Existing discovery flow is unchanged — just a new entry point.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Bulk upload + enrichment</strong><br><span style="color:var(--text-lt);">CSV upload or paste. Insense enriches against 2M+ database — adds follower counts, platform data. Affiliate links generated for ALL creators including those not yet on Insense (they receive a join invite alongside their brief).</span></div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 4: OUTREACH FLOW — NEW (Danil priority) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s4" class="sec-hdr">
+  <div class="sec-num">04</div>
+  <div><div class="sec-title">Outreach Flow — Email Sequences + IG DMs Baked In</div><div class="sec-sub">Central to the brief — not a separate tool · Auto-generates sequences with brief content · Mass outreach at scale</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-danil">
+  <span>💬</span>
+  <div>"The affiliate campaign flow requires email sequence outreaches and IG direct messages integrated into the briefing system, making outreach functionality central." — Danil</div>
+</div>
+
+<div class="ba-panel" style="margin-bottom:14px;">
+  <div class="ba-lbl lbl-new">NEW SCREEN — Outreach sequences (within Creators step, Organic Affiliate)</div>
+  <div class="app">
+    <div class="topbar"><div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div><div class="tb-mid">✓ Brief saved</div><div class="tb-acts"><button class="tb-save">Save as draft</button></div></div>
+    <div class="app-body">
+      <div class="stepper">
+        <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Core Details</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc done">✓</div><span class="sn">Campaign info</span></div></div>
+        <div class="step active"><div class="step-l"><div class="sc cur">●</div><span class="sn">Creators</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Deliverables</span></div></div>
+        <div class="step"><div class="step-l"><div class="sc"></div><span class="sn">Payment terms</span></div></div>
+      </div>
+      <div class="main" style="max-height:520px;">
+        <div class="card">
+          <div class="card-title">Outreach sequence <span style="font-size:11px;color:var(--muted);font-weight:400;">Auto-generated from your brief · Edit before sending</span></div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <!-- Sequence steps -->
+            <div>
+              <div class="f-label" style="margin-bottom:10px;">Sequence steps</div>
+              <div class="seq-step" style="position:relative;">
+                <span class="seq-num">1</span>
+                <div class="seq-line" style="height:calc(100% + 7px);"></div>
+                <div class="seq-c">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div class="seq-title">📧 Initial email outreach</div>
+                    <span class="seq-delay">Day 0</span>
+                  </div>
+                  <div class="seq-sub">Brief overview + affiliate link + commission rate. Personalised with creator name and handle.</div>
+                </div>
+              </div>
+              <div class="seq-step" style="position:relative;">
+                <span class="seq-num" style="background:var(--cyan);color:var(--charcoal);">2</span>
+                <div class="seq-line" style="height:calc(100% + 7px);background:rgba(0,200,224,.3);"></div>
+                <div class="seq-c">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div class="seq-title">📱 IG Direct Message</div>
+                    <span class="seq-delay" style="background:var(--cyan-lt);color:#006064;border:1px solid var(--cyan);">Day 2</span>
+                  </div>
+                  <div class="seq-sub">Short DM referencing the email. Product sample offer if applicable.</div>
+                </div>
+              </div>
+              <div class="seq-step" style="position:relative;">
+                <span class="seq-num" style="background:#888;">3</span>
+                <div class="seq-c">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div class="seq-title">📧 Follow-up email</div>
+                    <span class="seq-delay" style="background:#F5F5F5;color:#888;border:1px solid var(--border);">Day 7</span>
+                  </div>
+                  <div class="seq-sub">If no response. Highlights earning potential — e.g. "Creators like you typically earn $800–1,200/month."</div>
+                </div>
+              </div>
+              <button style="width:100%;border:1.5px dashed var(--border);border-radius:8px;padding:8px;font-size:12px;color:var(--muted);background:#FAFAFA;cursor:default;margin-top:4px;">+ Add step</button>
+            </div>
+
+            <!-- Email preview -->
+            <div>
+              <div class="f-label" style="margin-bottom:10px;">Email preview — Step 1</div>
+              <div class="email-preview">
+                <div class="email-subject">Subject: Collab opportunity — earn commission on your content 🔗</div>
+                <div>Hi <span class="email-tag">{{creator_first_name}}</span>,</div>
+                <br>
+                <div>We love your content on <span class="email-tag">{{platform}}</span> — especially your work in <span class="email-tag">{{niche}}</span>.</div>
+                <br>
+                <div>We're looking for creators to join our affiliate programme for <span class="email-tag">{{brand_name}}</span>. Here's how it works:</div>
+                <br>
+                <div>→ Tag our products in your organic content<br>→ Earn <span class="email-tag">{{commission_rate}}</span>% on every confirmed sale<br>→ Your unique link: <span class="email-tag">{{affiliate_link}}</span></div>
+                <br>
+                <div>No fixed posting schedule. No fixed fee required. Just great products and real commissions.</div>
+                <br>
+                <div style="color:var(--muted);font-size:10.5px;">— <span class="email-tag">{{brand_name}}</span> team via Insense</div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:10px;">
+                <select class="f-input" style="font-size:11.5px;flex:1;"><option>Edit template</option></select>
+                <button style="background:var(--pink);color:#fff;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-weight:600;cursor:default;">Send to 500 creators</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding:10px 14px;background:var(--pink-lt);border:1px solid var(--pink-border);border-radius:8px;font-size:11.5px;color:#8B1260;">
+            <strong>Outreach pool:</strong> 500 creators matched to your parameters across Insense network (120K) + Creator Marketplace (2M+) + TikTok Creator Marketplace. Sequences send automatically on schedule. Responses appear in your campaign inbox.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-p">Previous</button><button class="btn-n">Next</button></div>
+  </div>
+</div>
+
+<div class="ann-key" style="grid-template-columns:1fr 1fr;">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Email sequence builder</strong><br><span style="color:var(--text-lt);">Auto-generated from brief content. Personalised with creator name, handle, niche, affiliate link. Editable before sending. Step 1 email, Step 2 IG DM, Step 3 follow-up — all on automated schedule.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #006064;background:var(--cyan-lt);"></div><div><strong style="color:#006064;">New — IG Direct Message step</strong><br><span style="color:var(--text-lt);">DM is sent 2 days after the initial email. Danil explicitly requested IG DMs integrated into the briefing system. Sent via Instagram Creator Marketplace API (GA Oct 2025).</span></div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 5: PRODUCT CATALOGUE — NEW top-level section -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s5" class="sec-hdr">
+  <div class="sec-num">05</div>
+  <div><div class="sec-title">Product Catalogue — New Platform-Level Section</div><div class="sec-sub">Products as a separate entity · Auto-synced from Shopify · Used across multiple campaigns</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-new">
+  <span>🔑</span>
+  <div><strong>New concept from Danil:</strong> "Products should be treated as a separate entity within the platform for better management and updates." Currently products are entered manually per campaign. This new section lives at the account level — products sync from Shopify once and are reusable across any number of campaigns.</div>
+</div>
+
+<div class="ba-panel" style="margin-bottom:14px;">
+  <div class="ba-lbl lbl-new">NEW SECTION — Product Catalogue (account-level, accessible from main nav)</div>
+  <div class="app">
+    <div class="topbar">
+      <div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div>
+      <div class="tb-mid" style="justify-content:flex-start;gap:6px;padding-left:16px;">
+        <span style="font-size:12px;color:var(--muted);">Dashboard</span>
+        <span style="font-size:12px;color:var(--muted);">Campaigns</span>
+        <span style="font-size:12px;color:var(--muted);">Creators</span>
+        <span style="font-size:12.5px;font-weight:700;color:var(--pink);background:var(--pink-lt);padding:3px 10px;border-radius:6px;">Products ✦ New</span>
+        <span style="font-size:12px;color:var(--muted);">Analytics</span>
+      </div>
+      <div class="tb-acts"><button style="background:var(--pink);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:default;">+ Sync from Shopify</button></div>
+    </div>
+    <div class="app-body">
+      <div class="main" style="max-height:460px;padding:18px 22px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--text);">Product Catalogue</div>
+            <div style="font-size:11.5px;color:var(--muted);">47 products · Last synced from Shopify 2 hours ago · Used in 3 active campaigns</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <select class="f-input" style="font-size:11.5px;width:auto;padding:6px 10px;"><option>All categories</option></select>
+            <div class="f-input" style="display:flex;align-items:center;gap:6px;width:180px;padding:6px 10px;"><span style="color:var(--muted);">🔍</span><span style="font-size:11.5px;color:var(--muted);">Search products...</span></div>
+          </div>
+        </div>
+        <table class="prod-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>SKU</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Commission</th>
+              <th>Active campaigns</th>
+              <th>GMV (all time)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:6px;background:var(--pink-lt);display:flex;align-items:center;justify-content:center;">🧴</div><span style="font-weight:600;font-size:12px;">Vitamin C Brightening Serum 30ml</span></div></td>
+              <td style="font-family:monospace;font-size:11px;color:var(--muted);">SKU-4821</td>
+              <td>$34.99</td>
+              <td>284</td>
+              <td style="font-weight:700;color:var(--pink);">12%</td>
+              <td><span style="background:var(--green-lt);color:var(--green);font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;">2 campaigns</span></td>
+              <td class="gmv">$8,420</td>
+              <td><span class="prod-status ps-live">● Live</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:6px;background:var(--cyan-lt);display:flex;align-items:center;justify-content:center;">💧</div><span style="font-weight:600;font-size:12px;">Hyaluronic Acid Moisturiser 50ml</span></div></td>
+              <td style="font-family:monospace;font-size:11px;color:var(--muted);">SKU-4822</td>
+              <td>$29.99</td>
+              <td>156</td>
+              <td style="font-weight:700;color:var(--pink);">12%</td>
+              <td><span style="background:var(--green-lt);color:var(--green);font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;">2 campaigns</span></td>
+              <td class="gmv">$4,680</td>
+              <td><span class="prod-status ps-live">● Live</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:6px;background:#FFF9E6;display:flex;align-items:center;justify-content:center;">☀️</div><span style="font-weight:600;font-size:12px;">SPF 50 Daily Sunscreen 75ml</span></div></td>
+              <td style="font-family:monospace;font-size:11px;color:var(--muted);">SKU-4823</td>
+              <td>$24.99</td>
+              <td style="color:var(--orange);font-weight:600;">42 ⚠</td>
+              <td style="font-weight:700;color:var(--pink);">15%</td>
+              <td><span style="background:#F5F5F5;color:var(--muted);font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;">0 campaigns</span></td>
+              <td class="gmv">$1,240</td>
+              <td><span class="prod-status ps-pause">⏸ Paused</span></td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:6px;background:var(--pink-lt);display:flex;align-items:center;justify-content:center;">🌿</div><span style="font-weight:600;font-size:12px;">Retinol Night Cream 50ml</span></div></td>
+              <td style="font-family:monospace;font-size:11px;color:var(--muted);">SKU-4824</td>
+              <td>$44.99</td>
+              <td>89</td>
+              <td style="font-weight:700;color:var(--pink);">10%</td>
+              <td><span style="background:var(--pink-lt);color:var(--pink);font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;">New</span></td>
+              <td style="color:var(--muted);">—</td>
+              <td><span class="prod-status ps-new">✦ Add to campaign</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px;">GMV data from connected affiliate campaigns only · Commission rates editable per product · Stock warning at &lt;50 units</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ann-key" style="grid-template-columns:1fr 1fr 1fr;">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Products nav item</strong><br><span style="color:var(--text-lt);">New top-level nav item. Products live independently of campaigns — one product can be active across multiple affiliate campaigns simultaneously.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Shopify auto-sync</strong><br><span style="color:var(--text-lt);">Connect store once → full catalogue synced. Stock levels shown (warning at &lt;50 units). Commission rate editable per product. GMV tracked across all campaigns using that product.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — Per-product performance data</strong><br><span style="color:var(--text-lt);">Shows active campaign count, all-time GMV per product, and per-product commission rate. Enables Danil's vision of recommending products to creators based on margin + stock data.</span></div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 6: PERFORMANCE — extended with earnings reporting -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="s6" class="sec-hdr">
+  <div class="sec-num">06</div>
+  <div><div class="sec-title">Performance — Full Earnings Reporting (Creator Retention Fix)</div><div class="sec-sub">Creators see total earnings across all platforms · Not just Insense fixed fee · Critical retention mechanism</div></div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="callout cl-danil">
+  <span>💬</span>
+  <div>"Creators might earn a minimum fixed fee on Insense but potentially thousands of dollars through TikTok Shop sales, which is currently not reported back to the creator on Insense. Reporting this full earning potential back to creators would demonstrate Insense's value in facilitating high-earning deals."  — Danil</div>
+</div>
+
+<div class="ba-panel" style="margin-bottom:14px;">
+  <div class="ba-lbl lbl-a">AFTER — Performance with GMV, orders, commission + full earnings reporting</div>
+  <div class="app">
+    <div class="topbar"><div class="tb-logo"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><rect x="4" y="8" width="16" height="16" rx="1.5" fill="#2D2D2D" transform="rotate(-8 12 16)"/><rect x="2" y="10" width="15" height="15" rx="1.5" fill="#00C8E0" transform="rotate(-15 9.5 17.5)"/><polygon points="18,3 19.8,8.5 25.5,8.5 21,12 22.8,17.5 18,14 13.2,17.5 15,12 10.5,8.5 16.2,8.5" fill="#E91E8C"/></svg><span class="tb-wm">INSENSE</span></div><div class="tb-mid" style="color:var(--green);">● Live — Summer Skincare Affiliate Q3</div></div>
+    <div class="app-body">
+      <div class="main" style="max-height:500px;">
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div><div style="font-size:16px;font-weight:700;">Summer Skincare — Affiliate Q3</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px;">Organic Affiliate · YouTube + Instagram · 30-day attribution · GMC API + CAPI · Evergreen mode</div></div>
+            <div style="display:flex;gap:8px;">
+              <span style="background:var(--green-lt);color:var(--green);font-size:11px;font-weight:700;padding:4px 10px;border-radius:7px;">● Live</span>
+              <span style="background:var(--cyan-lt);color:#006064;font-size:11px;font-weight:700;padding:4px 10px;border-radius:7px;">⟳ Evergreen</span>
+            </div>
+          </div>
+
+          <div class="ann-row"><span class="ann">3 new affiliate KPI cards</span><span class="ann-ext">Existing engagement unchanged</span></div>
+          <div class="kpi-row">
+            <div class="kpi new-kpi"><div class="kpi-l">Total GMV ✦</div><div class="kpi-v">$23,850</div><div class="kpi-d kpi-up">↑ 18% this week</div><div class="kpi-bar"><div class="kpi-fill" style="width:72%;background:var(--green);"></div></div></div>
+            <div class="kpi new-kpi"><div class="kpi-l">Commissions ✦</div><div class="kpi-v">$2,385</div><div class="kpi-d">12% of GMV</div><div class="kpi-bar"><div class="kpi-fill" style="width:72%;background:var(--pink);"></div></div></div>
+            <div class="kpi new-kpi"><div class="kpi-l">Orders ✦</div><div class="kpi-v">805</div><div class="kpi-d kpi-up">↑ 94 this week</div><div class="kpi-bar"><div class="kpi-fill" style="width:58%;background:var(--orange);"></div></div></div>
+            <div class="kpi"><div class="kpi-l">Total Views</div><div class="kpi-v">335K</div><div class="kpi-d">unchanged</div></div>
+            <div class="kpi"><div class="kpi-l">Active creators</div><div class="kpi-v">6</div><div class="kpi-d" style="color:var(--pink);font-weight:600;">2 re-invite ready</div></div>
+          </div>
+
+          <div class="ann-row"><span class="ann-ext">4 new columns</span><span class="ann-auto">Re-invite auto-triggered</span></div>
+          <table class="perf-table">
+            <thead>
+              <tr><th>Creator</th><th>Platform</th><th>Views</th><th>Engagement</th><th class="nc">Orders ✦</th><th class="nc">GMV ✦</th><th class="nc">Commission ✦</th><th class="nc">Source ✦</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight:600;">@sarahcreates</td><td><span class="pt pt-yt">YT</span></td><td>124K</td><td style="color:var(--muted);">5.2%</td><td>287</td><td class="gmv">$8,420</td><td class="comm-c">$1,011</td><td><span class="src-tag">GMC API</span></td><td><button class="re-btn">Re-invite ✦</button></td></tr>
+              <tr><td style="font-weight:600;">@fitnessjane</td><td><span class="pt pt-ig">IG</span></td><td>89K</td><td style="color:var(--muted);">4.8%</td><td>156</td><td class="gmv">$4,680</td><td class="comm-c">$562</td><td><span class="src-tag">CAPI</span></td><td><button class="re-btn">Re-invite ✦</button></td></tr>
+              <tr><td style="font-weight:600;">@techunboxer</td><td><span class="pt pt-yt">YT</span></td><td>67K</td><td style="color:var(--muted);">3.9%</td><td>134</td><td class="gmv">$3,910</td><td class="comm-c">$469</td><td><span class="src-tag">GMC API</span></td><td><button style="border:1px solid var(--border);border-radius:5px;padding:3px 7px;font-size:9.5px;background:#fff;cursor:default;color:var(--text-lt);">Invite</button></td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:10.5px;color:var(--muted);margin-top:8px;">GMC API = YouTube (T+1 daily) · CAPI = Instagram purchase events · Re-invite ✦ = GMV threshold exceeded</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ann-key">
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #FF3B30;"></div><div><strong style="color:#FF3B30;">New — 3 GMV KPI cards</strong><br><span style="color:var(--text-lt);">GMV, Commissions, Orders added above existing metrics. Pink top border distinguishes new from existing. All KPI cards are real-time from connected platform APIs.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #F57C00;background:var(--orange-lt);"></div><div><strong style="color:#F57C00;">Extended — 4 new table columns</strong><br><span style="color:var(--text-lt);">Orders, GMV, Commission, Source added to creator table. Data source shown for transparency (GMC API vs CAPI). Existing columns (Views, Engagement) completely unchanged.</span></div></div>
+  <div class="ak-item"><div class="ak-sw" style="border:2px dashed #2E7D32;background:var(--green-lt);"></div><div><strong style="color:#2E7D32;">Auto-triggered — Re-invite button</strong><br><span style="color:var(--text-lt);">Pink button appears when creator GMV ≥ threshold. Surfaces top performers for long-term collab — the core retention mechanism Danil confirmed. Evergreen indicator (⟳) shown for always-on campaigns.</span></div></div>
+</div>
+
+</div><!-- end page -->
+
+<button class="print-btn" onclick="window.print()">🖨 Export / Print</button>
+
+<script>
+document.querySelectorAll('.nav-link').forEach(link=>{
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(link.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+window.addEventListener('scroll',()=>{
+  const ids=['s1','s2','s3','s4','s5','s6'];
+  let cur='s1';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<110)cur=id;});
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
